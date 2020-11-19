@@ -80,14 +80,14 @@ class DataPointGeoTIFF {
         strokeWeight(2)
         stroke(c)
         push()
-          noFill()
+          fill(c)
 
           if(threeDviewFlag){
               translate(-this.loc3D.x,this.loc3D.y,this.loc3D.z)}
           else{
               translate(-this.loc2D.x,this.loc2D.y)}
 
-          circle(0,0,pointWeight)
+          box(10,10,pointWeight*2)
           pop()
 
 
