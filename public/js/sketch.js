@@ -10,7 +10,9 @@
 
 
 
-let earthImg 
+let earthImg
+let ImgWidth
+let ImgHeight
 let sky 
 let theta = 0.001 
 let r = 400 
@@ -154,7 +156,10 @@ function getRandomColor(){
 
 
 function preload() {
-  	earthImg = loadImage('../imgs/earth_min_black.jpg') 
+  	earthImg = loadImage('../imgs/earth_min4.jpg')
+	ImgWidth = 5402
+	console.log(ImgWidth);
+	ImgHeight = 2702
 	sky = loadImage('../imgs/sky.jpg') 
 	earthMap = loadTable('assets/maps/earth.csv','','')
 	loadData('assets/data/future_cities.csv')
@@ -320,6 +325,7 @@ function draw() {
 	if(flagRfrsData){
 		visualizeDataFromTIFF(pntsFromTIFF_refrst,flagDataVisStyleRfrst, color(0,255,100))
 	}
+
 }
 
 function showFlatPointsOfInterest(){
@@ -359,7 +365,7 @@ function show3D(){
 	  	// texture(sky) 
 	  	noStroke() 
 	  	fill(30,30,30)
-		sphere(r*5,6,6);
+		//sphere(r*5,6,6);
 
 
 		// drawing the spikes from the Points Of Interest
@@ -455,6 +461,7 @@ function show2d() {
 	}
 	// console.log(user.x , user.y)
 	let testPoint2Ref = createVector(testPoint2.x,testPoint2.y)
+	image(earthImg,-ImgWidth / 2,-ImgHeight/2,ImgWidth, ImgHeight)
 	easycam.beginHUD()
 	if(isTouch){
 		fill(0,0,255,100)

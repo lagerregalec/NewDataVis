@@ -16,7 +16,7 @@ function dataFromTIFFtoArray(_img,  _pntsFromTIFF, _scale) {
   //     // let y = (i-x)/_img.width
 
       //     // mapping values from x y - longitude and latitude
-      let lon = map(x,0, _img.width,-180,180)
+      let lon = map(x,0, _img.width,180,-180)
       let lat = map(y,0, _img.height,90,-90)
       // log data on the console
       // console.log(lon , lat , r , g , b, brghtnss)
@@ -45,8 +45,11 @@ class DataPointGeoTIFF {
       // the 'whiteness' of the pixel
       this.value = _value
       this.loc3D = createVector(0,0,0)
+      this.loc2D = createVector(0,0)
       this.scale = _scale
       this.radius = 400 + 5
+
+
       // declaring temporal x y z components
       let tX,tY,tZ
       // converting lat lon into spherical xyz components of the loc3D vector  
@@ -56,8 +59,15 @@ class DataPointGeoTIFF {
       this.loc3D = createVector(
         tX,
         tY,
-        tZ 
+        tZ
       )
+
+        console.log(ImgWidth);
+
+          tX = map(this.lon,-180,180,-ImgWidth/2,ImgWidth/2)
+          tY = map(this.lat,90,-90,-ImgHeight/2,ImgHeight/2)
+          this.loc2D = createVector(tX,tY)
+
 
   }
   // first parameter is a boolean for the visualization style and second one is the display color
@@ -70,15 +80,26 @@ class DataPointGeoTIFF {
         strokeWeight(2)
         stroke(c)
         push()
-        translate(-this.loc3D.x,this.loc3D.y,this.loc3D.z)
-        noFill()
-        circle(0,0,pointWeight)
-        pop()
+          noFill()
+
+          if(threeDviewFlag){
+              translate(-this.loc3D.x,this.loc3D.y,this.loc3D.z)}
+          else{
+              translate(-this.loc2D.x,this.loc2D.y)}
+
+          circle(0,0,pointWeight)
+          pop()
+
+
       }else{
 
         strokeWeight(pointWeight)
         stroke(c)
-        point(-this.loc3D.x,this.loc3D.y,this.loc3D.z)
+          if(threeDviewFlag){
+
+              point(-this.loc3D.x,this.loc3D.y,this.loc3D.z)}
+              else{
+          point(-this.loc2D.x,this.loc2D.y)}
       }
     }else{
       // do something else  when the value (brightness is 0 or black or no information)
