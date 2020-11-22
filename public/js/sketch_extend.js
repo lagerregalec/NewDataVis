@@ -62,7 +62,7 @@ class DataPointGeoTIFF {
         tZ
       )
 
-        console.log(ImgWidth);
+
 
           tX = map(this.lon,-180,180,-ImgWidth/2,ImgWidth/2)
           tY = map(this.lat,90,-90,-ImgHeight/2,ImgHeight/2)
@@ -74,6 +74,7 @@ class DataPointGeoTIFF {
   display(visStyle,c){
 
     let pointWeight = map(this.value,0,255,1.2,8) *map(this.value,0,255,1.2,8) * this.scale
+      let opacity = this.value*this.value * this.scale
     if(this.value>0){
 
       if(visStyle){
@@ -85,21 +86,31 @@ class DataPointGeoTIFF {
           if(threeDviewFlag){
               translate(-this.loc3D.x,this.loc3D.y,this.loc3D.z)}
           else{
-              translate(-this.loc2D.x,this.loc2D.y)}
+              translate(-this.loc2D.x,this.loc2D.y,)}
 
-          box(10,10,pointWeight*2)
+
+          box(15,15,pointWeight)
           pop()
 
 
       }else{
 
         strokeWeight(pointWeight)
-        stroke(c)
+        fill(c)
+          push()
           if(threeDviewFlag){
-
-              point(-this.loc3D.x,this.loc3D.y,this.loc3D.z)}
+              translate(-this.loc3D.x,this.loc3D.y,this.loc3D.z)}
               else{
-          point(-this.loc2D.x,this.loc2D.y)}
+          translate(-this.loc2D.x,this.loc2D.y)}
+
+              //sphere(pointWeight/20)
+
+          rotateZ(0);
+          rotateX(67.5);
+          rotateY(0);
+          cylinder(20, pointWeight);
+
+        pop()
       }
     }else{
       // do something else  when the value (brightness is 0 or black or no information)

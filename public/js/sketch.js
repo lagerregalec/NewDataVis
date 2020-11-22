@@ -8,8 +8,9 @@
 // https://github.com/processing/p5.js/issues/1553 -> solving the 2d Projection of 3d points
 // https://www.keene.edu/campus/maps/tool/ -> drawing earth maps and converting them into latitude longitude
 
-
-
+let mousePositionX
+let mousePositionY
+let perspectiveShift
 let earthImg
 let ImgWidth
 let ImgHeight
@@ -31,7 +32,7 @@ let pOIFlag = true
 let flatMapFlag = false
 let myFont
 let tableControl
-let bckColor = [0,0,0]
+let bckColor = [255,255,255]
 
 let zurich
 let cdmx
@@ -156,18 +157,19 @@ function getRandomColor(){
 
 
 function preload() {
+
   	earthImg = loadImage('../imgs/earth_min4.jpg')
-	ImgWidth = 5402
-	console.log(ImgWidth);
-	ImgHeight = 2702
+	ImgWidth = windowWidth*2
+	ImgHeight = windowHeight*2
 	sky = loadImage('../imgs/sky.jpg') 
 	earthMap = loadTable('assets/maps/earth.csv','','')
 	loadData('assets/data/future_cities.csv')
 	// loading images containing simplified data from the geoTIFF
 	co2 = loadImage('assets/data/co2_emissions.png')
 	refrst = loadImage('assets/data/geodata_ref_potential.png')
-	
-	
+
+
+
 
 
 	socket.on('connected',function(data){
@@ -183,6 +185,7 @@ function preload() {
 
 
 function setup() {
+
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL) 
 	noStroke()
 	textFont(myFont)
@@ -194,6 +197,7 @@ function setup() {
 		easycam = new Dw.EasyCam(this._renderer, {distance:1500, center:[0,0,0]}) 
 		easycam.setDistanceMin(100)
 		easycam.setDistanceMax(r*60)
+		easycam.setRotationConstraint(false,true,false)
 		easycamIntialized=true
 	}
 	// Attaching  Touch Listeners to body and P5 JS Canvas 
@@ -220,7 +224,7 @@ function setup() {
 	let fut_lat = futureCitiesData.getColumn(29)
 	let fut_lon = futureCitiesData.getColumn(30)
 
-	console.log(cities.length + " total rows in table")
+	//console.log(cities.length + " total rows in table")
 	// for(let i = 0 ; i < cities.length; i ++ ){
 	// 	if(i>0){
 	// 		// console.log(cities[i] , curr_lat[i], curr_lon[i])
@@ -299,34 +303,44 @@ function setup() {
 	// from co2
 	dataFromTIFFtoArray(co2,pntsFromTIFF_co2,5.0)
 	// from rfrst
-	dataFromTIFFtoArray(refrst,pntsFromTIFF_refrst,1.0)
-	
-	
-
+	dataFromTIFFtoArray(refrst,pntsFromTIFF_refrst,5.0)
 
 }
 
+let smooth
 function draw() {
-  	background(bckColor) 
+  	background(bckColor)
 	// let user = createVector(mouseX,mouseY)
 	show3D()
-	show2d() 
-	showPointsOfInterest(cities.length-2)
+	show2D()
+	//showPointsOfInterest(cities.length-2)
 	showFlatMap(pointsEarth, color(0,255,0))
-	showVectorMap(pointsEarth,screenPointsEarth,color(255,255,255))
-	easycam.setCenter([0,0,0],0.0)
+	//showVectorMap(pointsEarth,screenPointsEarth,color(255,255,255))
+		mousePositionX = map(mouseX,0,windowWidth,-windowWidth,windowWidth)
+		mousePositionY= map(mouseY,0,windowHeight,-windowHeight,windowHeight)
+	// in case the touch display or device is available use the touchX instead
+	if(isTouch ){
+		mousePositionX = map(touchX,0,windowWidth,-windowWidth,windowWidth)
+		mousePositionY = map(touchY,0,windowHeight,-windowHeight,windowHeight)
+	}
+	easycam.setCenter([mousePositionX,mousePositionY,0],0.0)
 
 	// here we call the function visualize and pass the desired arraylist
 	// which will iterate through each data point and visualize it
 	// the flag is a boolean to display or hide the visualization
 	if(flagCO2Data){
-		visualizeDataFromTIFF(pntsFromTIFF_co2,flagDataVisStyleCO2, color(255,0,0))
-	}
+
+		visualizeDataFromTIFF(pntsFromTIFF_co2,flagDataVisStyleCO2, color(0,0,0,100))}
+
 	if(flagRfrsData){
-		visualizeDataFromTIFF(pntsFromTIFF_refrst,flagDataVisStyleRfrst, color(0,255,100))
+		visualizeDataFromTIFF(pntsFromTIFF_refrst,flagDataVisStyleRfrst, color(0,255,100,100))
 	}
 
+
+
 }
+
+
 
 function showFlatPointsOfInterest(){
  		for(let i = 0; i <cities.length; i++){
@@ -409,6 +423,7 @@ function keyTyped(){
 	if(key === 'l' || key === 'L'){
 		flagDataVisStyleRfrst = !flagDataVisStyleRfrst
 	}
+
 }
 function windowResized() {
   	resizeCanvas(windowWidth, windowHeight,true)
@@ -451,7 +466,7 @@ function listenMessages(){
 	}) 
 }
 
-function show2d() {
+function show2D() {
 	let testPoint = screenPosition(-tPS.x, tPS.y, tPS.z)
 	let testPoint2 = screenPosition(-tPE.x, tPE.y, tPE.z)
 	let user = createVector(mouseX - windowWidth/2,mouseY - windowHeight/2)
@@ -463,6 +478,7 @@ function show2d() {
 	let testPoint2Ref = createVector(testPoint2.x,testPoint2.y)
 	image(earthImg,-ImgWidth / 2,-ImgHeight/2,ImgWidth, ImgHeight)
 	easycam.beginHUD()
+
 	if(isTouch){
 		fill(0,0,255,100)
 		circle(touchX,touchY,50)
@@ -493,7 +509,10 @@ function show2d() {
 		// you can rename this trackedDevices - call them tokens for instance
 		trackedDevices.forEach(element =>{
 			if(element.inRange){
-				element.show()	
+				element.show()
+				if(element.uniqueId < 10){
+				perspectiveShift = map(element.rotation,0,360,-90,90)
+				}
 				fill(200,0,0)
 				ellipse(element.smoothPosition.x + 100, element.smoothPosition.y+100, 20,20)
 				// if(elemnt.uniqueId == 52){ /* example of a loop accessing an specific uniqueId  to do something specific */}
@@ -666,7 +685,7 @@ function fastDist(  ax, ay,  az, bx, by, bz )
 function showPointsOfInterest(amount){
 	if(pOIFlag){
 		let testPoints = []
-		// the screenPoisition() function projects coordinates from 3D space into the 2D projections of the Screen
+		// the screenPosition() function projects coordinates from 3D space into the 2D projections of the Screen
 		let tZurich = screenPosition(-zurich.x,zurich.y,zurich.z)
 		let tCDMX = screenPosition(-cdmx.x,cdmx.y,cdmx.z)
 		for(let i = 0 ; i <amount; i++){
@@ -968,6 +987,11 @@ class Label{
 		pop()
 
 	}
+}
+
+function easeFloat (target, value, alpha ){
+	value = value * alpha + target *(1-alpha)
+	return value
 }
 
 
