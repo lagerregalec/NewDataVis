@@ -8,6 +8,7 @@
 // https://github.com/processing/p5.js/issues/1553 -> solving the 2d Projection of 3d points
 // https://www.keene.edu/campus/maps/tool/ -> drawing earth maps and converting them into latitude longitude
 
+let treePlanter
 let mousePositionX
 let mousePositionY
 let perspectiveShift
@@ -197,6 +198,7 @@ function setup() {
 		easycam = new Dw.EasyCam(this._renderer, {distance:1500, center:[0,0,0]}) 
 		easycam.setDistanceMin(100)
 		easycam.setDistanceMax(r*60)
+
 		easycam.setRotationConstraint(false,true,false)
 		easycamIntialized=true
 	}
@@ -309,6 +311,7 @@ function setup() {
 
 let smooth
 function draw() {
+	console.log(treePlanter)
   	background(bckColor)
 	// let user = createVector(mouseX,mouseY)
 	show3D()
@@ -330,10 +333,10 @@ function draw() {
 	// the flag is a boolean to display or hide the visualization
 	if(flagCO2Data){
 
-		visualizeDataFromTIFF(pntsFromTIFF_co2,flagDataVisStyleCO2, color(0,0,0,100))}
+		visualizeDataFromTIFF(pntsFromTIFF_co2,flagDataVisStyleCO2, color(0,0,0,255))}
 
 	if(flagRfrsData){
-		visualizeDataFromTIFF(pntsFromTIFF_refrst,flagDataVisStyleRfrst, color(0,255,100,100))
+		visualizeDataFromTIFF(pntsFromTIFF_refrst,flagDataVisStyleRfrst, color(0,255,100,255))
 	}
 
 
@@ -510,8 +513,12 @@ function show2D() {
 		trackedDevices.forEach(element =>{
 			if(element.inRange){
 				element.show()
-				if(element.uniqueId < 10){
-				perspectiveShift = map(element.rotation,0,360,-90,90)
+				if(element.uniqueId == 3){
+				//perspectiveShift = map(element.rotation,0,360,-0.1,0.1)
+					treePlanter = map(element.rotation,0,360,-90,90)
+				}
+				if(element.uniqueID == 2){
+
 				}
 				fill(200,0,0)
 				ellipse(element.smoothPosition.x + 100, element.smoothPosition.y+100, 20,20)
@@ -519,10 +526,12 @@ function show2D() {
 				// access the identifier : element.identifier // changes everytime you add or create a new object on screen
 				// access the uniqueId : element.uniqueId // stays the same always for each tracked object
 				text(element.uniqueId, element.smoothPosition.x + 120, element.smoothPosition.y + 120)
+				console.log(perspectiveShift)
 			}
 			updateHTML(element.smoothPosition.x, element.smoothPosition.x,element.uniqueId)
 		})
 	}
+	easycam.rotateX(perspectiveShift,10);
 	easycam.endHUD()
 }
 

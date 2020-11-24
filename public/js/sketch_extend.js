@@ -31,8 +31,11 @@ function dataFromTIFFtoArray(_img,  _pntsFromTIFF, _scale) {
 // and calls the function display(...) from each object
 function visualizeDataFromTIFF(_pntsFromTIFF, _visFlag, _c){
   _pntsFromTIFF.forEach(element => {
-      element.display(_visFlag,_c)
-  })
+      if(element.lat > treePlanter) {
+          element.display(_visFlag, _c)
+      }
+
+      })
 }
 // a class to store each Pixel as data point
 class DataPointGeoTIFF {
@@ -74,6 +77,7 @@ class DataPointGeoTIFF {
   display(visStyle,c){
 
     let pointWeight = map(this.value,0,255,1.2,8) *map(this.value,0,255,1.2,8) * this.scale
+      let reforestScale = map(treePlanter,-90,90,0,2)
       let opacity = this.value*this.value * this.scale
     if(this.value>0){
 
@@ -88,15 +92,16 @@ class DataPointGeoTIFF {
           else{
               translate(-this.loc2D.x,this.loc2D.y,)}
 
-
-          box(15,15,pointWeight)
+          rotateX(158.5);
+          cone(15,pointWeight)
           pop()
 
 
       }else{
 
-        strokeWeight(pointWeight)
+        //strokeWeight(pointWeight-reforestScale*50)
         fill(c)
+          stroke(c)
           push()
           if(threeDviewFlag){
               translate(-this.loc3D.x,this.loc3D.y,this.loc3D.z)}
@@ -108,7 +113,7 @@ class DataPointGeoTIFF {
           rotateZ(0);
           rotateX(67.5);
           rotateY(0);
-          cylinder(20, pointWeight);
+          cylinder(20, pointWeight*reforestScale);
 
         pop()
       }
