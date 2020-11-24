@@ -4,6 +4,9 @@ This is a node.js server framework using socket.io and including a P5 JS impleme
 
 To take off and start your own visualization experiments
 
+# Visuals
+https://www.figma.com/file/mKnVjQhocc4GOLYeqXcwB4/Data_Vis_Reforestation?node-id=0%3A1
+
 # preparations:
 download or clone this repository
 install node js (if you haven't ) in  your machine or virtual machine
