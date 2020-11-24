@@ -11,6 +11,8 @@
 let treePlanter
 let mousePositionX
 let mousePositionY
+let tokenPositionX
+let tokenPositionY
 let perspectiveShift
 let earthImg
 let ImgWidth
@@ -67,6 +69,8 @@ let pntsFromTIFF_refrst = []
 let flagCO2Data = true
 let flagRfrsData = true
 
+let flagisTrees = true
+let flagisCO2 = false
 let flagDataVisStyleCO2 = false
 let flagDataVisStyleRfrst = true
 
@@ -311,7 +315,7 @@ function setup() {
 
 let smooth
 function draw() {
-	console.log(treePlanter)
+	console.log(tokenPositionX)
   	background(bckColor)
 	// let user = createVector(mouseX,mouseY)
 	show3D()
@@ -326,17 +330,20 @@ function draw() {
 		mousePositionX = map(touchX,0,windowWidth,-windowWidth,windowWidth)
 		mousePositionY = map(touchY,0,windowHeight,-windowHeight,windowHeight)
 	}
-	easycam.setCenter([mousePositionX,mousePositionY,0],0.0)
+	if(tokenPositionX>0){
+	easycam.setCenter([tokenPositionX,tokenPositionY,0],0.0)}else{
+		easycam.setCenter([mousePositionX,mousePositionY,0],0.0)}
+
 
 	// here we call the function visualize and pass the desired arraylist
 	// which will iterate through each data point and visualize it
 	// the flag is a boolean to display or hide the visualization
 	if(flagCO2Data){
 
-		visualizeDataFromTIFF(pntsFromTIFF_co2,flagDataVisStyleCO2, color(0,0,0,255))}
+		visualizeDataFromTIFF(pntsFromTIFF_co2,flagisCO2, color(42,42,42,255))}
 
 	if(flagRfrsData){
-		visualizeDataFromTIFF(pntsFromTIFF_refrst,flagDataVisStyleRfrst, color(0,255,100,255))
+		visualizeDataFromTIFF(pntsFromTIFF_refrst,flagisTrees, color(40,210,53,255))
 	}
 
 
@@ -425,6 +432,8 @@ function keyTyped(){
 	}
 	if(key === 'l' || key === 'L'){
 		flagDataVisStyleRfrst = !flagDataVisStyleRfrst
+		flagisTrees = !flagisTrees
+		flagisCO2 = !flagisCO2
 	}
 
 }
@@ -480,6 +489,7 @@ function show2D() {
 	// console.log(user.x , user.y)
 	let testPoint2Ref = createVector(testPoint2.x,testPoint2.y)
 	image(earthImg,-ImgWidth / 2,-ImgHeight/2,ImgWidth, ImgHeight)
+
 	easycam.beginHUD()
 
 	if(isTouch){
@@ -514,10 +524,15 @@ function show2D() {
 			if(element.inRange){
 				element.show()
 				if(element.uniqueId == 3){
-				//perspectiveShift = map(element.rotation,0,360,-0.1,0.1)
-					treePlanter = map(element.rotation,0,360,-90,90)
+					treePlanter = map(element.smoothRotation,0,360,-90,90)
+
 				}
-				if(element.uniqueID == 2){
+
+				if(element.uniqueId == 2){
+					console.log(element)
+					perspectiveShift = map(element.smoothRotation,0,360,-0.1,0.1)
+					tokenPositionX = element.smoothPosition.x
+					tokenPositionY = element.smoothPosition.y
 
 				}
 				fill(200,0,0)
