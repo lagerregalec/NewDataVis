@@ -113,7 +113,7 @@ class DataPointGeoTIFF {
           rotateZ(0);
           rotateX(67.5);
           rotateY(0);
-          cylinder(20, pointWeight*reforestScale);
+          cylinder(15, pointWeight*reforestScale);
 
         pop()
       }
