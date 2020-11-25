@@ -163,7 +163,7 @@ function getRandomColor(){
 
 function preload() {
 
-  	earthImg = loadImage('../imgs/earth_min4.jpg')
+  	earthImg = loadImage('../imgs/Map_V1.svg')
 	ImgWidth = windowWidth*2
 	ImgHeight = windowHeight*2
 	sky = loadImage('../imgs/sky.jpg') 
@@ -199,7 +199,7 @@ function setup() {
 	refrst.resize(windowWidth/8, windowHeight/8)
 
 	if(!easycamIntialized){
-		easycam = new Dw.EasyCam(this._renderer, {distance:1500, center:[0,0,0]}) 
+		easycam = new Dw.EasyCam(this._renderer, {distance:2000, center:[0,0,0]})
 		easycam.setDistanceMin(100)
 		easycam.setDistanceMax(r*60)
 
