@@ -9,6 +9,7 @@
 // https://www.keene.edu/campus/maps/tool/ -> drawing earth maps and converting them into latitude longitude
 
 let istokenActive = false
+let flagPerspective = false
 let treePlanter
 let mousePositionX
 let mousePositionY
@@ -25,14 +26,14 @@ let r = 400
 let easycam 
 let pOI = [] 
 let pOI2 = []
-let startRotation = [0.95,0.3,0,0]
+let startRotation = [0.95,0.4,0,0]
 
 let socket = io() 
 
 let tPS, tPE // testPointStart , testPointEnd of Spike 
 let canvas 
 let trackedDevices = []
-let threeDviewFlag = true
+let threeDviewFlag = false
 let vectorMapFlag = false
 let pOIFlag = true
 let flatMapFlag = false
@@ -199,13 +200,12 @@ function setup() {
 
 	// resizing / downscaling the resolution of the image-data
 	co2.resize(windowWidth/14, windowHeight/14)
-	refrst.resize(windowWidth/14, windowHeight/14)
+	refrst.resize(windowWidth/16, windowHeight/16)
 
 	if(!easycamIntialized){
 		easycam = new Dw.EasyCam(this._renderer, {distance:2000, center:[0,0,0]})
 		easycam.setDistanceMin(100)
 		easycam.setDistanceMax(r*60)
-		easycam.setRotation(startRotation,50)
 		easycam.setRotationConstraint(false,true,false)
 		easycamIntialized=true
 	}
@@ -310,7 +310,7 @@ function setup() {
 	// once the pixel is handeld an object is created and pushed into the list in the draw we access
 	// this list and iterate through each of the data points in order to visualize them or interact
 	// from co2
-	dataFromTIFFtoArray(co2,pntsFromTIFF_co2,5.0)
+	dataFromTIFFtoArray(co2,pntsFromTIFF_co2,2.0)
 	// from rfrst
 	dataFromTIFFtoArray(refrst,pntsFromTIFF_refrst,5.0)
 
@@ -318,13 +318,13 @@ function setup() {
 
 let smooth
 function draw() {
-	console.log(easycam.getRotation())
+	//console.log(easycam.getRotationScale())
   	background(bckColor)
 	// let user = createVector(mouseX,mouseY)
 	show3D()
 	show2D()
 	//showPointsOfInterest(cities.length-2)
-	showFlatMap(pointsEarth, color(0,255,0))
+	//showFlatMap(pointsEarth, color(0,255,0))
 	//showVectorMap(pointsEarth,screenPointsEarth,color(255,255,255))
 		mousePositionX = map(mouseX,0,windowWidth,-windowWidth,windowWidth)
 		mousePositionY= map(mouseY,0,windowHeight,-windowHeight,windowHeight)
@@ -346,7 +346,13 @@ function draw() {
 		visualizeDataFromTIFF(pntsFromTIFF_co2,flagisCO2, color(42,42,42,255))}
 
 	if(flagRfrsData){
-		visualizeDataFromTIFF(pntsFromTIFF_refrst,flagisTrees, color(40,210,53,255))
+		visualizeDataFromTIFF(pntsFromTIFF_refrst,flagisTrees, color(40,121,53,255))
+	}
+
+	if(flagPerspective){
+		startRotation = [1,0,0,0]
+	} else{
+		startRotation = [0.95,0.4,0,0]
 	}
 
 
@@ -401,7 +407,7 @@ function show3D(){
 			// rename to : pOIx, pOIy, pOIz
 			// drawLine(-pOI[i].x,pOI[i].y,pOI[i].z,-pOI2[i].x,pOI2[i].y,pOI2[i].z,0,0,255) 
 		}
-		drawLine(-tPS.x,tPS.y,tPS.z,-tPE.x,tPE.y,tPE.z,0,255,0)
+		//drawLine(-tPS.x,tPS.y,tPS.z,-tPE.x,tPE.y,tPE.z,0,255,0)
 
 		// showFlatPointsOfInterest();
 	}
@@ -437,6 +443,9 @@ function keyTyped(){
 		flagDataVisStyleRfrst = !flagDataVisStyleRfrst
 		flagisTrees = !flagisTrees
 		flagisCO2 = !flagisCO2
+	}
+	if(key === 'z' || key === 'z'){
+		flagPerspective = !flagPerspective
 	}
 
 }
@@ -501,28 +510,16 @@ function show2D() {
 	if(zoom > 0){
 	easycam.setDistance(zoom,50)
 		}
-
+	easycam.setRotation(startRotation,100)
 	easycam.beginHUD()
 
 	if(isTouch){
 		fill(0,0,255,100)
 		circle(touchX,touchY,50)
 	}
-	fill(255,0,0)
-	noStroke()
-	if(user.dist(testPoint)<55){
-		circle(testPoint.x + windowWidth/2, testPoint.y + windowHeight/2, 10)
-	}else{	
-		circle(testPoint.x + windowWidth/2, testPoint.y + windowHeight/2, 1)
-	}
-	if(user.dist(testPoint2)<55){
-		circle(testPoint2.x + windowWidth/2, testPoint2.y + windowHeight/2, 10)
-	}else{	
-		circle(testPoint2.x + windowWidth/2, testPoint2.y + windowHeight/2, 1)
-	}
-	stroke(255,0,0)
-	strokeWeight(0.5)
-	line(testPoint.x + windowWidth/2, testPoint.y +windowHeight/2,testPoint2.x + windowWidth/2, testPoint2.y + windowHeight/2 )
+
+
+
 	if(trackedDevices.length>0){
 
 		trackedDevices.forEach( element => {
@@ -545,7 +542,7 @@ function show2D() {
 					console.log(element)
 					istokenActive = true
 					tokenPositionX = map(element.smoothPosition.x,0,width,-width,width)
-					tokenPositionY = element.smoothPosition.y
+					tokenPositionY = map(element.smoothPosition.y,0,height,-height,height)
 					zoom = map(element.smoothRotation,20,340,3000,500)
 					element.color = color(222)
 
@@ -930,8 +927,8 @@ class TrackedDevice{
 		pop()
 
 		// DISPLAY LABEL
-		this.thisLabel.update(this.smoothPosition.x,this.smoothPosition.y,this.sizeL, this.smoothRotation + 120)		
-		noStroke()
+		//this.thisLabel.update(this.smoothPosition.x,this.smoothPosition.y,this.sizeL, this.smoothRotation + 120)
+		//noStroke()
 	}
 	calculateRange(){
 		this.update()
