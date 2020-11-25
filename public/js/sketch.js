@@ -568,7 +568,7 @@ function show2D() {
 
 // this function creates an HTML div element assigns the class trackedDivs to it, passes the uniqueId as id and adds some text inside
 function createHTML(id){
-	if (id == 1) {
+	/*if (id == 1) {
 		let template = `
 			<div class="window">
 				${id}
@@ -578,7 +578,7 @@ function createHTML(id){
 
 		let template =
 	}
-
+*/
 	let buttonDiv1 = document.createElement("div")   // creating a new div
 	buttonDiv1.className = "trackedDivs"
 	buttonDiv1.innerHTML = template;
