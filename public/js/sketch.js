@@ -534,7 +534,7 @@ function show2D() {
 				// access the uniqueId : element.uniqueId // stays the same always for each tracked object
 				console.log(perspectiveShift)
 			}
-			updateHTML(element.smoothPosition.x, element.smoothPosition.y,element.uniqueId)
+			updateHTML(element.smoothPosition.x, element.smoothPosition.y, element.uniqueId)
 		})
 	}
 	easycam.rotateX(perspectiveShift,10);
@@ -543,19 +543,29 @@ function show2D() {
 
 // this function creates an HTML div element assigns the class trackedDivs to it, passes the uniqueId as id and adds some text inside
 function createHTML(id){
-	let testDiv = document.createElement("div")   // creating a new div
-	testDiv.className = "trackedDivs"
-	testDiv.innerHTML = "-2 GT"
-	testDiv.id = id
-	document.body.appendChild(testDiv)
+	let buttonDiv1 = document.createElement("div")   // creating a new div
+	buttonDiv1.className = "trackedDivs"
+	buttonDiv1.innerHTML = "-2 GT"
+	buttonDiv1.id = id
+	document.body.appendChild(buttonDiv1)
+	let buttonDiv2 = document.createElement("div")   // creating a new div
+	buttonDiv2.className = "trackedDivs"
+	buttonDiv2.innerHTML = "-2 GT"
+	buttonDiv2.id = id2
+	document.body.appendChild(buttonDiv2)
 }
+
 // this function update the position and labels of the tracked devices
 function updateHTML(x_pos, y_pos,tracked_id){
 	let trackedDivs = document.getElementsByClassName("trackedDivs")
 	Array.prototype.forEach.call(trackedDivs, function(element) {
 		if(element.id == tracked_id){
-			element.style.left = (x_pos+120)+'px';
-			element.style.top = (y_pos-70)+'px';
+			element.style.left = (x_pos-70)+'px';
+			element.style.top = (y_pos-190)+'px';
+		}
+		if(element.id == tracked_id){
+			element.style.left = (x_pos-200)+'px';
+			element.style.top = (y_pos-190)+'px';
 		}
 	})
 }
