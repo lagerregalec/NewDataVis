@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html>
+<<<<<<< Updated upstream
 <head>
     <meta charset="utf-8">
     <title> Earth Viewer </title>
@@ -72,4 +73,78 @@
 </div>
 
 </body>
+=======
+	<head>
+		<meta charset="utf-8">
+		<title> Earth Viewer </title>
+		<script src="libraries/socket.io.js"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
+		<script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
+		<script language="javascript" type="text/javascript" src="libraries/p5.easycam.min.js"></script>
+		<script language="javascript" type="text/javascript" src="libraries/addScreenPositionFunction.js"></script>
+
+		<script language="javascript" type="text/javascript" src="js/GUI.js"></script>
+		<script language="javascript" type="text/javascript" src="js/sketch.js"></script>
+		<script language="javascript" type="text/javascript" src="js/sketch_extend.js"></script>
+
+		<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+		<link href="css/style.css" rel="stylesheet">
+
+	</head>
+
+	<body>
+	<div id="testLabel">
+		<p>Earth Viewer Test</p>
+	</div>
+
+	<div id="info" class="window">
+		<b1>
+			Press key "V" to display vector map
+		</b1>
+		<b1>
+			Press key "M" to display Earth map
+		</b1>
+		<b1>
+			Press key "P" to display points of interest(future cities in this case)
+		</b1>
+		<b1>
+			Press key "F" to fullscreen and esc to go back
+		</b1>
+		<b1>
+			Press key "C" to hide the CO2 vis
+		</b1>
+		<b1>
+			Press key "K" to swap the CO2 vis mode
+		</b1>
+		<b1>
+			Press key "R" to hide the Reforest vis
+		</b1>
+		<b1>
+			Press key "L" to swap the Reforest vis mode
+		</b1>
+
+	</div>
+
+	<div id="myDiv", class="window">
+		<div class="infoButtonParent">
+			<button class="infoWindowBut" onclick="document.getElementById('myDiv').style.display='none'"> ></button>
+		</div>
+	</div>
+
+	<div class="token"></div>
+
+	<div id="infoDiv" class="window">
+		<div class="closeButtonParent">
+			<button class="closeWindowBut" onclick="document.getElementById('infoDiv').style.display='none'">X</button>
+		</div>
+
+		<p>
+			infoWindow
+		</p>
+
+	</div>
+
+	</body>
+>>>>>>> Stashed changes
 </html>
+
