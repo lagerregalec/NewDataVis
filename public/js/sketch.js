@@ -543,6 +543,7 @@ function show2D() {
 
 // this function creates an HTML div element assigns the class trackedDivs to it, passes the uniqueId as id and adds some text inside
 function createHTML(id){
+<<<<<<< Updated upstream
 	let buttonDiv1 = document.createElement("div")   // creating a new div
 	buttonDiv1.className = "trackedDivs"
 	buttonDiv1.innerHTML = "-2 GT"
@@ -553,6 +554,29 @@ function createHTML(id){
 	buttonDiv2.innerHTML = "-2 GT"
 	buttonDiv2.id = id2
 	document.body.appendChild(buttonDiv2)
+=======
+	/* if (id == 1) {
+		let template = `
+			<div id="trackedDivs">
+				<h1>"-5 GT";</h1>
+			</div>
+			
+			<!-- <div id="trackedDivs">
+				<h1>"-5 GT";</h1>
+				 ${id}
+			</div> -->
+			
+		`}
+	/*} else if (id == 2){
+
+		/*let template =
+	} */
+	let buttonDiv = document.createElement("div")   // creating a new div
+	buttonDiv1.idName = "trackedDivs"
+	buttonDiv1.innerHTML = "-5 GT";
+	buttonDiv1.id = id
+	document.body.appendChild(buttonDiv)
+>>>>>>> Stashed changes
 }
 
 // this function update the position and labels of the tracked devices
@@ -561,10 +585,6 @@ function updateHTML(x_pos, y_pos,tracked_id){
 	Array.prototype.forEach.call(trackedDivs, function(element) {
 		if(element.id == tracked_id){
 			element.style.left = (x_pos-70)+'px';
-			element.style.top = (y_pos-190)+'px';
-		}
-		if(element.id == tracked_id){
-			element.style.left = (x_pos-200)+'px';
 			element.style.top = (y_pos-190)+'px';
 		}
 	})
@@ -606,8 +626,6 @@ function setMap(map, mapPoints, screenMapPoints){
 		screenMapPoints.push(screen2DVector)
 
 	}
-
-
 
 }
 
@@ -779,16 +797,8 @@ function drawLine(x1, y1, z1, x2, y2, z2, r,g,b){
 
 
 function loadData(path) {
-
-
 	futureCitiesData = loadTable(path, '', '')
-
-
 }
-
-
-
-
 
 
 

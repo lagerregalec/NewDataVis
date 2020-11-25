@@ -1,12 +1,21 @@
 @font-face {
-    font-family: "akzidenz-grotesk-reg";
-    src: url("/assets/AkzidGroBEReg");
-    font-family: "akzidenz-grotesk-reg-it";
-    src: url("/assets/AkzidGroBEIt");
-    font-family: "akzidenz-grotesk-bol";
-    src: url("/assets/AkzidGroBEBol");
-    font-family: "akzidenz-grotesk-bol-it";
-    src: url("/assets/AkzidGroBEBolIt");
+    font-family: "Theinhardt-Bold";
+    src: url("/assets/Theinhardt-Bold.otf");
+}
+
+@font-face {
+    font-family: "Theinhardt-BoldIta";
+    src: url("/assets/Theinhardt-BoldIta.otf");
+}
+
+@font-face {
+    font-family: "Theinhardt-Regular";
+    src: url("/assets/Theinhardt-Regular.otf");
+}
+
+@font-face {
+    font-family: "Theinhardt-RegularIta";
+    src: url("/assets/Theinhardt-RegularIta.otf");
 }
 
 body {
@@ -24,7 +33,7 @@ body {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     /* default Text style */
-    font-family: 'akzidenz-grotesk-reg', Arial, sans-serif;
+    font-family: 'Theinhardt-Regular';
     line-height: 1.5;
     color: #000000;
 }
@@ -33,39 +42,55 @@ body {
 
 h1 {
     /* Body 1 Text style */
+<<<<<<< Updated upstream
     font-family: 'akzidenz-grotesk-bol-it', Arial, sans-serif;
     font-size: 20pt;
     line-height: 24pt;
+=======
+    font-family: 'Theinhardt-Bold';
+    font-size: 18pt;
+    line-height: 20pt;
+>>>>>>> Stashed changes
     color: #000000;
 }
 
 h2 {
     /* Body 1 Text style */
+<<<<<<< Updated upstream
     font-family: 'akzidenz-grotesk-reg', Arial, sans-serif;
     font-size: 12pt;
     line-height: 15pt;
+=======
+    font-family: 'Theinhardt-Bold';
+    font-size: 10pt;
+    line-height: 12pt;
+>>>>>>> Stashed changes
     color: #000000;
 }
 
 b1 {
     /* Body 1 Text style */
-    font-family: 'akzidenz-grotesk-reg', Arial, sans-serif;
+    font-family: 'Theinhardt-Regular';
     font-size: 10pt;
     line-height: 12pt;
+    letter-spacing: 0.03em;
     color: #000000;
+
 }
 
 b2 {
     /* Body 1 Text style */
-    font-family: 'akzidenz-grotesk-reg', Arial, sans-serif;
+    font-family: 'Theinhardt-Regular';
     font-size: 12pt;
     line-height: 15pt;
+    letter-spacing: 0.03em;
     color: #000000;
 }
 
-/* Andres GUI elements */
 
-#testLabel {
+/* ID elements */
+
+#infoWindow {
     z-index: 100001;
     position: absolute;
     top: 20px;
@@ -73,7 +98,44 @@ b2 {
     width: 150px;
     height: 200px;
     background-color: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 1);
+    border: 2px solid rgba(0, 0, 0, 1);
+}
+
+#tutWindow1 {
+    z-index: 100001;
+    position: absolute;
+    top: 270px;
+    left: 20px;
+    width: 300px;
+    height: 200px;
+    background-color: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 1);
+    display: block;
+}
+
+#tutWindow2 {
+    z-index: 100001;
+    position: absolute;
+    top: 270px;
+    left: 20px;
+    width: 300px;
+    height: 200px;
+    background-color: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 1);
+    display: none;
+}
+
+
+#tutWindow3 {
+    z-index: 100001;
+    position: absolute;
+    top: 270px;
+    left: 20px;
+    width: 300px;
+    height: 200px;
+    background-color: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 1);
+    display: none;
 }
 
 #defaultCanvas0 {
@@ -83,17 +145,6 @@ b2 {
     left: 0;
     width: 100%;
     height: 100%;
-}
-
-.trackedDivs {
-    position: absolute;
-    background-color: #ffffff;
-    color: #000000;
-    width: 100px;
-    height: 40px;
-    padding: 20px !important;
-    z-index: 10000;
-    border: 1px solid rgba(0, 0, 0, 1);
 }
 
 #info p {
@@ -126,13 +177,45 @@ b2 {
     left: 62%;
 }
 
+#tokenSelector {
+    position: absolute;
+    background-color: #ffffff;
+    color: #000000;
+    width: 100px;
+    height: 40px;
+    padding: 20px !important;
+    z-index: 10000;
+    border: 2px solid rgba(0, 0, 0, 1);
+}
+
+/* classes */
+
+.trackedDivs {
+    position: absolute;
+    background-color: #ffffff;
+    color: #000000;
+    width: 100px;
+    height: 40px;
+    padding: 20px !important;
+    z-index: 10000;
+    border: 2px solid rgba(0, 0, 0, 1);
+}
+
 .window {
     background: rgba(255, 255, 255, 1);
     opacity: 1;
     stroke: rgba(0, 0, 0, 1);
     stroke-width: 2;
+<<<<<<< Updated upstream
     border: 1px solid rgba(0, 0, 0, 1);
     padding: 20px !important;
+=======
+    border: 2px solid rgba(0, 0, 0, 1);
+    padding-top: 10px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-bottom: 10px !important;
+>>>>>>> Stashed changes
     z-index: 10001;
 }
 
@@ -146,59 +229,56 @@ b2 {
     left: 38%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 1);
+    border: 2px solid rgba(0, 0, 0, 1);
     z-index: 10001;
 }
 
-.infoButtonParent {
-    width: 20px;
-    height: 20px;
+.showButtonParent {
+    width: 22px;
+    height: 22px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     position: absolute;
     top: 45%;
-    left: 89%;
+    left: 87%;
     background: rgba(255, 255, 255,0);
-    border: 1px solid rgba(0, 0, 0, 1);
+    border: 2px solid rgba(0, 0, 0, 1);
 }
 
 .closeButtonParent {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     position: absolute;
     top: 7%;
-    left: 89%;
+    left: 87%;
     background: rgba(255, 255, 255,0);
-    border: 1px solid rgba(0, 0, 0, 1);
+    border: 2px solid rgba(0, 0, 0, 1);
 }
 
-.infoWindowBut {
+.showButton {
     width: 20px;
     height: 20px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    position: absolute;
-    top: -5%;
-    left: 0%;
-    background: rgb(255, 255, 255);
-    border: 1px solid rgba(0, 0, 0, 0);
-}
-
-.closeWindowBut {
-    width: 20px;
-    height: 20px;
+    font-family: 'akzidenz-grotesk-bol', Arial, sans-serif;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     position: absolute;
     top: 0%;
     left: 0%;
     background: rgb(255, 255, 255);
-    border: 1px solid rgba(0, 0, 0, 0);
-	/* Body 1 Text style */
-	font-family: 'akzidenz-grotesk-reg', Arial, sans-serif;
-	font-size: 10pt;
-	line-height: 12pt;
-	color: #000000;
+    border: 2px solid rgba(0, 0, 0, 0);
+}
+
+.closeButton {
+    width: 20px;
+    height: 20px;
+    font-family: 'akzidenz-grotesk-bol', Arial, sans-serif;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    background: rgb(255, 255, 255);
+    border: 2px solid rgba(0, 0, 0, 0);
 }
