@@ -20,18 +20,18 @@ let zoom = 0
 let earthImg
 let ImgWidth
 let ImgHeight
-let sky 
-let theta = 0.001 
-let r = 400 
-let easycam 
-let pOI = [] 
+let sky
+let theta = 0.001
+let r = 400
+let easycam
+let pOI = []
 let pOI2 = []
 let startRotation = [0.95,0.4,0,0]
 
-let socket = io() 
+let socket = io()
 
-let tPS, tPE // testPointStart , testPointEnd of Spike 
-let canvas 
+let tPS, tPE // testPointStart , testPointEnd of Spike
+let canvas
 let trackedDevices = []
 let threeDviewFlag = false
 let vectorMapFlag = false
@@ -81,31 +81,29 @@ let flagDataVisStyleRfrst = true
 /*  full screen */
 let elem = document.documentElement
 function openFullscreen() {
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen()
-  } else if (elem.mozRequestFullScreen) { /* Firefox */
-    elem.mozRequestFullScreen()
-  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-    elem.webkitRequestFullscreen()
-  } else if (elem.msRequestFullscreen) { /* IE/Edge */
-    elem.msRequestFullscreen()
-  }
+	if (elem.requestFullscreen) {
+		elem.requestFullscreen()
+	} else if (elem.mozRequestFullScreen) { /* Firefox */
+		elem.mozRequestFullScreen()
+	} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+		elem.webkitRequestFullscreen()
+	} else if (elem.msRequestFullscreen) { /* IE/Edge */
+		elem.msRequestFullscreen()
+	}
 }
-
 
 /* Close fullscreen */
 function closeFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen()
-  } else if (document.mozCancelFullScreen) { /* Firefox */
-    document.mozCancelFullScreen()
-  } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-    document.webkitExitFullscreen()
-  } else if (document.msExitFullscreen) { /* IE/Edge */
-    document.msExitFullscreen()
-  }
-} 
-
+	if (document.exitFullscreen) {
+		document.exitFullscreen()
+	} else if (document.mozCancelFullScreen) { /* Firefox */
+		document.mozCancelFullScreen()
+	} else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+		document.webkitExitFullscreen()
+	} else if (document.msExitFullscreen) { /* IE/Edge */
+		document.msExitFullscreen()
+	}
+}
 
 function init(){
 
@@ -120,7 +118,7 @@ function handleTouch(evt){
 	// console.log("touch started at : " + evt.touches[0].clientX + " , " + evt.touches[0].clientY)
 	touchX = evt.touches[0].clientX
 	touchY = evt.touches[0].clientY
-	
+
 }
 
 function handleEnd(evt) {
@@ -131,25 +129,20 @@ function handleEnd(evt) {
 }
 
 function handleMove(evt) {
-	 // console.log("touch moved at : " + evt.changedTouches[0].pageX + " , " + evt.changedTouches[0].pageY )
+	// console.log("touch moved at : " + evt.changedTouches[0].pageX + " , " + evt.changedTouches[0].pageY )
 	touchX = evt.changedTouches[0].pageX
 	touchY = evt.changedTouches[0].pageY
 }
 
-
-
-
-
-
 function ongoingTouchIndexById(idToFind) {
-  for (var i = 0; i < ongoingTouches.length; i++) {
-    var id = ongoingTouches[i].identifier
-    
-    if (id == idToFind) {
-      return i
-    }
-  }
-  return -1    // not found
+	for (var i = 0; i < ongoingTouches.length; i++) {
+		var id = ongoingTouches[i].identifier
+
+		if (id == idToFind) {
+			return i
+		}
+	}
+	return -1    // not found
 }
 
 function resize(){
@@ -157,35 +150,28 @@ function resize(){
 }
 
 function getRandomColor(){
-    var rgb1 = Math.floor((Math.random() * 255) + 200)
-    var rgb2 = Math.floor((Math.random() * 255) + 200)
-    var rgb3 = Math.floor((Math.random() * 255) + 200)
-    return "rgb("+rgb1 +","+rgb2 + ","+rgb3 +")"
+	var rgb1 = Math.floor((Math.random() * 255) + 200)
+	var rgb2 = Math.floor((Math.random() * 255) + 200)
+	var rgb3 = Math.floor((Math.random() * 255) + 200)
+	return "rgb("+rgb1 +","+rgb2 + ","+rgb3 +")"
 }
-
-
 
 function preload() {
 
   	earthImg = loadImage('../imgs/earth_min4.png')
 	ImgWidth = windowWidth*2
 	ImgHeight = windowHeight*2
-	sky = loadImage('../imgs/sky.jpg') 
+	sky = loadImage('../imgs/sky.jpg')
 	earthMap = loadTable('assets/maps/earth.csv','','')
 	loadData('assets/data/future_cities.csv')
 	// loading images containing simplified data from the geoTIFF
 	co2 = loadImage('assets/data/co2_emissions.png')
 	refrst = loadImage('assets/data/geodata_ref_potential.png')
 
-
-
-
-
 	socket.on('connected',function(data){
 		// do something in case another node is connected
 		// console.log('new client connected id:' + data.id) 
-	}) 
-	
+	})
 
 	openFullscreen()
 	init()
@@ -195,7 +181,7 @@ function preload() {
 
 function setup() {
 
-	canvas = createCanvas(windowWidth, windowHeight, WEBGL) 
+	canvas = createCanvas(windowWidth, windowHeight, WEBGL)
 	noStroke()
 
 	// resizing / downscaling the resolution of the image-data
@@ -209,15 +195,15 @@ function setup() {
 		easycam.setRotationConstraint(false,true,false)
 		easycamIntialized=true
 	}
-	// Attaching  Touch Listeners to body and P5 JS Canvas 
+	// Attaching  Touch Listeners to body and P5 JS Canvas
 	document.body.addEventListener('touchstart',handleTouch,false)
 	document.getElementById('defaultCanvas0').addEventListener('touchstart',handleTouch,false)
 	document.getElementById('defaultCanvas0').addEventListener('touchend',handleEnd,false)
 	document.getElementById('defaultCanvas0').addEventListener('touchmove',handleMove,false)
 
-	let fov = PI/3 
-	let near = 200 
-	let far = 80000 
+	let fov = PI/3
+	let near = 200
+	let far = 80000
 
 	addScreenPositionFunction(this)
 	setMap(earthMap,pointsEarth,screenPointsEarth)
@@ -241,21 +227,21 @@ function setup() {
 	// }
 	for(let i = 0 ; i <cities.length; i++){
 		// geo coordinates
-		// replace the random locations with the projects 
+		// replace the random locations with the projects
 		if(i>0){
-		let lat = radians(curr_lat[i]) 
-		let lon = radians(curr_lon[i]) 
-		// console.log(i , cities[i], lat , lon )
-		// cartesian coordinates
-		let x = r * Math.cos(lat) * Math.cos(lon)
-		let y = r * Math.cos(lat) * Math.sin(lon)
-		let z = r * Math.sin(lat)
-		pOI.push(createVector(x,y,z)) 
-		let x2 = (r+25) * Math.cos(lat) * Math.cos(lon)
-		let y2 = (r+25) * Math.cos(lat) * Math.sin(lon)
-		let z2 = (r+25) * Math.sin(lat)
-		// 25 is the distance or length of the spikes
-		pOI2.push(createVector(x2,y2,z2))
+			let lat = radians(curr_lat[i])
+			let lon = radians(curr_lon[i])
+			// console.log(i , cities[i], lat , lon )
+			// cartesian coordinates
+			let x = r * Math.cos(lat) * Math.cos(lon)
+			let y = r * Math.cos(lat) * Math.sin(lon)
+			let z = r * Math.sin(lat)
+			pOI.push(createVector(x,y,z))
+			let x2 = (r+25) * Math.cos(lat) * Math.cos(lon)
+			let y2 = (r+25) * Math.cos(lat) * Math.sin(lon)
+			let z2 = (r+25) * Math.sin(lat)
+			// 25 is the distance or length of the spikes
+			pOI2.push(createVector(x2,y2,z2))
 		}
 	}
 	tPS = createVector()
@@ -294,7 +280,7 @@ function setup() {
 	tPS.y = r * Math.cos(lat) * Math.sin(lon)
 	tPS.z = r * Math.sin(lat)
 
-	tPE.x = (r+50) * Math.cos(lat) * Math.cos(lon)	
+	tPE.x = (r+50) * Math.cos(lat) * Math.cos(lon)
 	tPE.y = (r+50) * Math.cos(lat) * Math.sin(lon)
 	tPE.z = (r+50) * Math.sin(lat)
 
@@ -318,21 +304,24 @@ function setup() {
 
 let smooth
 function draw() {
+
 	//console.log(easycam.getRotationScale())
   	background(bckColor)
+
 	// let user = createVector(mouseX,mouseY)
 	show3D()
 	show2D()
 	//showPointsOfInterest(cities.length-2)
 	//showFlatMap(pointsEarth, color(0,255,0))
 	//showVectorMap(pointsEarth,screenPointsEarth,color(255,255,255))
-		mousePositionX = map(mouseX,0,windowWidth,-windowWidth,windowWidth)
-		mousePositionY= map(mouseY,0,windowHeight,-windowHeight,windowHeight)
+	mousePositionX = map(mouseX,0,windowWidth,-windowWidth,windowWidth)
+	mousePositionY= map(mouseY,0,windowHeight,-windowHeight,windowHeight)
 	// in case the touch display or device is available use the touchX instead
 	if(isTouch ){
 		mousePositionX = map(touchX,0,windowWidth,-windowWidth,windowWidth)
 		mousePositionY = map(touchY,0,windowHeight,-windowHeight,windowHeight)
 	}
+
 	if(istokenActive){
 	easycam.setCenter([tokenPositionX,tokenPositionY,0],0.0)}else{
 		easycam.setCenter([mousePositionX,mousePositionY,0],0.0)}
@@ -355,21 +344,17 @@ function draw() {
 		startRotation = [0.95,0.4,0,0]
 	}
 
-
-
 }
 
-
-
 function showFlatPointsOfInterest(){
- 		for(let i = 0; i <cities.length; i++){
-			let lR = 400 
-			let lLat = asin(pOI[i].z/lR) 
-			let lLong = atan2(pOI[i].y, -pOI[i].x ) 
-			lLat = lLat *  90/PI * 10 // scaling
-			lLong = lLong * 180/PI * 10 // scaling 
-			drawLine(lLong, lLat, 0, lLong, lLat, 50 ,0,255,0) 
-		}
+	for(let i = 0; i <cities.length; i++){
+		let lR = 400
+		let lLat = asin(pOI[i].z/lR)
+		let lLong = atan2(pOI[i].y, -pOI[i].x )
+		lLat = lLat *  90/PI * 10 // scaling
+		lLong = lLong * 180/PI * 10 // scaling
+		drawLine(lLong, lLat, 0, lLong, lLat, 50 ,0,255,0)
+	}
 }
 
 // function touchMoved() {
@@ -378,26 +363,26 @@ function showFlatPointsOfInterest(){
 
 function show3D(){
 	if(threeDviewFlag){
-		ambientLight(60, 60, 60) 
- 		let v1 = easycam.getPosition(500) 
-	 	pointLight(255,255, 255, v1[0], v1[1]+300, v1[2]) 
-	 	pointLight(255, 255, 255, v1[0], v1[1]+300, v1[2]) 
-	  	texture(earthImg)
-	  	noStroke()
-	  	// rotating earth in order to match coordinate system location
-	  	push()
-	  	rotateX(radians(rMX)) 
-	  	rotateY(radians(rMY))
-	  	rotateZ(radians(rMZ))
-	  	// fill(0,0,100)
-	  	// drawing EARTH Polygon
-	  	sphere(r,20,20)
-	  	pop()
-		noLights() 
-	 	ambientLight(255, 255, 255) 
-	  	// texture(sky) 
-	  	noStroke() 
-	  	fill(30,30,30)
+		ambientLight(60, 60, 60)
+		let v1 = easycam.getPosition(500)
+		pointLight(255,255, 255, v1[0], v1[1]+300, v1[2])
+		pointLight(255, 255, 255, v1[0], v1[1]+300, v1[2])
+		texture(earthImg)
+		noStroke()
+		// rotating earth in order to match coordinate system location
+		push()
+		rotateX(radians(rMX))
+		rotateY(radians(rMY))
+		rotateZ(radians(rMZ))
+		// fill(0,0,100)
+		// drawing EARTH Polygon
+		sphere(r,20,20)
+		pop()
+		noLights()
+		ambientLight(255, 255, 255)
+		// texture(sky)
+		noStroke()
+		fill(30,30,30)
 		//sphere(r*5,6,6);
 
 
@@ -405,7 +390,7 @@ function show3D(){
 		for(let i = 0; i <400; i++){
 
 			// rename to : pOIx, pOIy, pOIz
-			// drawLine(-pOI[i].x,pOI[i].y,pOI[i].z,-pOI2[i].x,pOI2[i].y,pOI2[i].z,0,0,255) 
+			// drawLine(-pOI[i].x,pOI[i].y,pOI[i].z,-pOI2[i].x,pOI2[i].y,pOI2[i].z,0,0,255)
 		}
 		//drawLine(-tPS.x,tPS.y,tPS.z,-tPE.x,tPE.y,tPE.z,0,255,0)
 
@@ -450,11 +435,11 @@ function keyTyped(){
 
 }
 function windowResized() {
-  	resizeCanvas(windowWidth, windowHeight,true)
-  	if(easycamIntialized){
-  		easycam.setViewport([0,0,windowWidth, windowHeight])
+	resizeCanvas(windowWidth, windowHeight,true)
+	if(easycamIntialized){
+		easycam.setViewport([0,0,windowWidth, windowHeight])
 	}
-  	resize()
+	resize()
 }
 
 let myIds = ['navigation','information'];
@@ -471,9 +456,9 @@ function listenMessages(){
 		myIds.splice(0, 1);
 		trackedDevices.push(thisDevice)
 		createHTML(data.id)
-	}) 
+	})
 	socket.on('updateDevice', function(data){
-		let id = data.id 
+		let id = data.id
 		trackedDevices.forEach( element => {
 			if(element.uniqueId === id){
 				element.x = data.x * windowWidth
@@ -483,7 +468,7 @@ function listenMessages(){
 		})
 	})
 	socket.on('removeDevice', function(data){
-		let id = data.id 
+		let id = data.id
 		trackedDevices.forEach( function(element,index) {
 			if(element.uniqueId == id ){
 				myIds.push(element.id);
@@ -492,7 +477,7 @@ function listenMessages(){
 		})
 		delete myIds[id];
 		destroyHTML(data.id)
-	}) 
+	})
 }
 
 function show2D() {
@@ -508,9 +493,11 @@ function show2D() {
 	image(earthImg,-ImgWidth / 2,-ImgHeight/2,ImgWidth, ImgHeight)
 
 	if(zoom > 0){
+
 	easycam.setDistance(zoom,50)
 		}
 	easycam.setRotation(startRotation,100)
+
 	easycam.beginHUD()
 
 	if(isTouch){
@@ -518,7 +505,23 @@ function show2D() {
 		circle(touchX,touchY,50)
 	}
 
-
+	/*
+	fill(255,0,0)
+	noStroke()
+	if(user.dist(testPoint)<55){
+		circle(testPoint.x + windowWidth/2, testPoint.y + windowHeight/2, 10)
+	}else{
+		circle(testPoint.x + windowWidth/2, testPoint.y + windowHeight/2, 1)
+	}
+	if(user.dist(testPoint2)<55){
+		circle(testPoint2.x + windowWidth/2, testPoint2.y + windowHeight/2, 10)
+	}else{
+		circle(testPoint2.x + windowWidth/2, testPoint2.y + windowHeight/2, 1)
+	}
+	stroke(255,0,0)
+	strokeWeight(0.5)
+	line(testPoint.x + windowWidth/2, testPoint.y +windowHeight/2,testPoint2.x + windowWidth/2, testPoint2.y + windowHeight/2 )
+	*/
 
 	if(trackedDevices.length>0){
 
@@ -564,19 +567,30 @@ function show2D() {
 
 // this function creates an HTML div element assigns the class trackedDivs to it, passes the uniqueId as id and adds some text inside
 function createHTML(id){
-	let testDiv = document.createElement("div")   // creating a new div
-	testDiv.className = "trackedDivs"
-	testDiv.innerHTML = "I'm a new div"
-	testDiv.id = id           
-	document.body.appendChild(testDiv)
+	let buttonDiv1 = document.createElement("div")   // creating a new div
+	buttonDiv1.className = "trackedDivs"
+	buttonDiv1.innerHTML = "-2 GT"
+	buttonDiv1.id = id
+	document.body.appendChild(buttonDiv1)
+	let buttonDiv2 = document.createElement("div")   // creating a new div
+	buttonDiv2.className = "trackedDivs"
+	buttonDiv2.innerHTML = "-2 GT"
+	buttonDiv2.id = id2
+	document.body.appendChild(buttonDiv2)
 }
+
 // this function update the position and labels of the tracked devices
 function updateHTML(x_pos, y_pos,tracked_id){
 	let trackedDivs = document.getElementsByClassName("trackedDivs")
 	Array.prototype.forEach.call(trackedDivs, function(element) {
 		if(element.id == tracked_id){
-			element.style.left = (x_pos)+'px';
-			element.style.top = (y_pos-120)+'px';
+
+			element.style.left = (x_pos-70)+'px';
+			element.style.top = (y_pos-190)+'px';
+		}
+		if(element.id == tracked_id){
+			element.style.left = (x_pos-200)+'px';
+			element.style.top = (y_pos-190)+'px';
 		}
 	})
 }
@@ -615,11 +629,10 @@ function setMap(map, mapPoints, screenMapPoints){
 		let screenPoint = screenPosition(-point.x,point.y,point.z)
 		let screen2DVector = createVector(screenPoint.x,screenPoint.y)
 		screenMapPoints.push(screen2DVector)
-				
 
 	}
 
-	
+
 
 }
 
@@ -630,46 +643,46 @@ function showVectorMap(mapPoints, screenMapPoints, farbe){
 	if(vectorMapFlag){
 		let step = 12
 		for( let i = 0 ; i < screenMapPoints.length -step ; i = i +step){
-					let screenPoint = screenPosition(-mapPoints[i].x,mapPoints[i].y,mapPoints[i].z)
-					let screen2DVector = createVector(screenPoint.x,screenPoint.y)
-					screenMapPoints[i] = screen2DVector
-		}	
+			let screenPoint = screenPosition(-mapPoints[i].x,mapPoints[i].y,mapPoints[i].z)
+			let screen2DVector = createVector(screenPoint.x,screenPoint.y)
+			screenMapPoints[i] = screen2DVector
+		}
 		// strokeWeight(1)
 		easycam.beginHUD()
-			// beginShape()
-			stroke(farbe)
-			// fill(255,10)
-			strokeWeight(1.0)
-			noFill()
-			let shaped = false
-			let indexError =0
-			let indexR = 0
-			let indexG = 0
-			let indexB = 0
-			for( let i = 0; i < screenMapPoints.length-step ; i = i +step ){
-				if(i>step){
-					let fixI = i
-					if(!calcDeltasOnce){
-						deltas[i] = dist(mapPoints[i].x,mapPoints[i].y,mapPoints[i].z,mapPoints[i-step].x,mapPoints[i-step].y,mapPoints[i-step].z)
-					}
-					if(deltas[i]< 10.25+step && !shaped){
-						beginShape()
-						shaped=true
+		// beginShape()
+		stroke(farbe)
+		// fill(255,10)
+		strokeWeight(1.0)
+		noFill()
+		let shaped = false
+		let indexError =0
+		let indexR = 0
+		let indexG = 0
+		let indexB = 0
+		for( let i = 0; i < screenMapPoints.length-step ; i = i +step ){
+			if(i>step){
+				let fixI = i
+				if(!calcDeltasOnce){
+					deltas[i] = dist(mapPoints[i].x,mapPoints[i].y,mapPoints[i].z,mapPoints[i-step].x,mapPoints[i-step].y,mapPoints[i-step].z)
+				}
+				if(deltas[i]< 10.25+step && !shaped){
+					beginShape()
+					shaped=true
+					vertex(screenMapPoints[i].x + windowWidth/2, screenMapPoints[i].y + windowHeight/2)
+				}else{
+					if(shaped && deltas[fixI] <10.25+step){
 						vertex(screenMapPoints[i].x + windowWidth/2, screenMapPoints[i].y + windowHeight/2)
 					}else{
-						if(shaped && deltas[fixI] <10.25+step){
-							vertex(screenMapPoints[i].x + windowWidth/2, screenMapPoints[i].y + windowHeight/2)
-						}else{
-							if(deltas[fixI]>10.25+step){
-								endShape()
-								shaped=false
-								indexError++
-							}
+						if(deltas[fixI]>10.25+step){
+							endShape()
+							shaped=false
+							indexError++
 						}
 					}
 				}
 			}
-			calcDeltasOnce =true
+		}
+		calcDeltasOnce =true
 		easycam.endHUD()
 	}
 }
@@ -679,29 +692,29 @@ function showFlatMap(mapPoints,farbe){
 		let step = 15
 		let lastLat
 		let lastLong
-		let scaleX = 5 
+		let scaleX = 5
 		let scaleY = 10
 		for ( let i = 0 ; i < mapPoints.length-step; i = i + step){
-				let lR = 400 
-				let lLat = asin(mapPoints[i].z/lR) 
-				let lLong = atan2(mapPoints[i].y, -mapPoints[i].x )			
-				lLat = lLat *  90/PI * scaleY // scaling
-				lLong = lLong * 180/PI * scaleX // scaling 
-				// mapping longitude from -180 - 180º to the other way around 
-				if(lLong<=-55){
-					lLong = map(lLong,-(180*scaleX),0,0,(180*scaleX))
-				}else{
-					lLong = map(lLong,0,(180*scaleX),-(180*scaleX),0)
+			let lR = 400
+			let lLat = asin(mapPoints[i].z/lR)
+			let lLong = atan2(mapPoints[i].y, -mapPoints[i].x )
+			lLat = lLat *  90/PI * scaleY // scaling
+			lLong = lLong * 180/PI * scaleX // scaling
+			// mapping longitude from -180 - 180º to the other way around
+			if(lLong<=-55){
+				lLong = map(lLong,-(180*scaleX),0,0,(180*scaleX))
+			}else{
+				lLong = map(lLong,0,(180*scaleX),-(180*scaleX),0)
+			}
+			if(i> 0){
+				let delta = fastDist(lLong,lLat,0,lastLong,lastLat,0)
+				if(delta<(4000)){
+					drawLine(lLong, lLat, 0, lastLong, lastLat, 0 ,255,255,255)
 				}
-				if(i> 0){
-					let delta = fastDist(lLong,lLat,0,lastLong,lastLat,0)
-					if(delta<(4000)){
-						drawLine(lLong, lLat, 0, lastLong, lastLat, 0 ,255,255,255)
-					}
-				}
-				lastLat		=	lLat
-				lastLong	=	lLong
-	
+			}
+			lastLat		=	lLat
+			lastLong	=	lLong
+
 		}
 		drawLine((180*scaleX),-400,0,-(180*scaleX),400,0,255,0,0)
 		// meridian or longitude 0
@@ -713,9 +726,9 @@ function showFlatMap(mapPoints,farbe){
 
 function fastDist(  ax, ay,  az, bx, by, bz )
 {
-  let fdist = (bx - ax) * (bx - ax) + (by - ay) * (by - ay) + (bz - az) * (bz - az)
-  // fdist = fdist
-  return fdist
+	let fdist = (bx - ax) * (bx - ax) + (by - ay) * (by - ay) + (bz - az) * (bz - az)
+	// fdist = fdist
+	return fdist
 }
 // rename this function - show Points Of Interest
 function showPointsOfInterest(amount){
@@ -734,43 +747,43 @@ function showPointsOfInterest(amount){
 		}
 		// similar to pushMatrix()
 		easycam.beginHUD()
-			for(let i = 0; i < amount;i++){
-				if(user.dist(testPoints[i])<10){
-					fill(255,180,255)
-					noStroke()
-					circle(testPoints[i].x + windowWidth/2, testPoints[i].y + windowHeight/2, 15)
-					let lat = Math.asin(pOI[i].z / r )
-					let lon = Math.atan2(pOI[i].y, pOI[i].x)
-					lat = lat * 180 / Math.PI
-					lon = lon * 180 / Math.PI
-					textSize(12)
-					let latLon = 'lat : ' + lat.toFixed(3) + ' , lon : '+ lon.toFixed(3);
-					text( cities[i+1]  + " , " + latLon ,testPoints[i].x + windowWidth/2 + 10, testPoints[i].y + windowHeight/2 + 5 )
-				}else{
-					fill(200,180,200)
-					noStroke()
-					circle(testPoints[i].x + windowWidth/2, testPoints[i].y + windowHeight/2, 2)
-				}
-			}
-			fill(255,100,100)
-			if(user.dist(tZurich)<25){
-				let lat = Math.asin(zurich.z / r)
-				let lon = Math.atan2(zurich.y,zurich.x)
-				lat = lat * 180 / PI
-				lon = lon * 180 / PI
-				textSize(16)
-				let latLon = 'ZURICH, LAT : ' + lat.toFixed(3) + ' , LON : '+ lon.toFixed(3) + ' , Z pos : ' + tZurich.z
-				if(mouseX>windowWidth/2){
-					text( latLon ,tZurich.x + windowWidth/2 - 240, tZurich.y + windowHeight/2 + 25 )
-				}else{
-					text( latLon ,tZurich.x + windowWidth/2 + 20, tZurich.y + windowHeight/2 + 25 )
-				}
-				circle(tZurich.x + windowWidth/2,tZurich.y + windowHeight/2,25)
+		for(let i = 0; i < amount;i++){
+			if(user.dist(testPoints[i])<10){
+				fill(255,180,255)
+				noStroke()
+				circle(testPoints[i].x + windowWidth/2, testPoints[i].y + windowHeight/2, 15)
+				let lat = Math.asin(pOI[i].z / r )
+				let lon = Math.atan2(pOI[i].y, pOI[i].x)
+				lat = lat * 180 / Math.PI
+				lon = lon * 180 / Math.PI
+				textSize(12)
+				let latLon = 'lat : ' + lat.toFixed(3) + ' , lon : '+ lon.toFixed(3);
+				text( cities[i+1]  + " , " + latLon ,testPoints[i].x + windowWidth/2 + 10, testPoints[i].y + windowHeight/2 + 5 )
 			}else{
-				circle(tZurich.x + windowWidth/2,tZurich.y + windowHeight/2,15)
+				fill(200,180,200)
+				noStroke()
+				circle(testPoints[i].x + windowWidth/2, testPoints[i].y + windowHeight/2, 2)
 			}
-			fill(100,100,255)
-			circle(tCDMX.x + windowWidth/2,tCDMX.y + windowHeight/2,5)
+		}
+		fill(255,100,100)
+		if(user.dist(tZurich)<25){
+			let lat = Math.asin(zurich.z / r)
+			let lon = Math.atan2(zurich.y,zurich.x)
+			lat = lat * 180 / PI
+			lon = lon * 180 / PI
+			textSize(16)
+			let latLon = 'ZURICH, LAT : ' + lat.toFixed(3) + ' , LON : '+ lon.toFixed(3) + ' , Z pos : ' + tZurich.z
+			if(mouseX>windowWidth/2){
+				text( latLon ,tZurich.x + windowWidth/2 - 240, tZurich.y + windowHeight/2 + 25 )
+			}else{
+				text( latLon ,tZurich.x + windowWidth/2 + 20, tZurich.y + windowHeight/2 + 25 )
+			}
+			circle(tZurich.x + windowWidth/2,tZurich.y + windowHeight/2,25)
+		}else{
+			circle(tZurich.x + windowWidth/2,tZurich.y + windowHeight/2,15)
+		}
+		fill(100,100,255)
+		circle(tCDMX.x + windowWidth/2,tCDMX.y + windowHeight/2,5)
 		// popMatrix()
 		easycam.endHUD()
 	}
@@ -779,29 +792,24 @@ function mouseClicked() {
 
 }
 function drawLine(x1, y1, z1, x2, y2, z2, r,g,b){
-	fill(r,g,b) 
-	stroke(r,g,b) 
-	strokeWeight(0.5) 
-  	beginShape() 
-  	vertex(x1,y1,z1) 
-  	vertex(x2,y2,z2) 
-  	endShape() 
-	noStroke() 
+	fill(r,g,b)
+	stroke(r,g,b)
+	strokeWeight(0.5)
+	beginShape()
+	vertex(x1,y1,z1)
+	vertex(x2,y2,z2)
+	endShape()
+	noStroke()
 }
 
 
 function loadData(path) {
 
 
-   futureCitiesData = loadTable(path, '', '')
+	futureCitiesData = loadTable(path, '', '')
 
 
 }
-
-
-
-
-
 
 
 
@@ -836,8 +844,6 @@ class TrackedDevice{
 		this.oldPos = createVector(0,0)
 		this.color = color(0,0,0)
 
-
-		
 	}
 	update(){
 		let currPos = createVector ( this.x,this.y )
@@ -845,7 +851,7 @@ class TrackedDevice{
 		let alpha = 0.1
 		this.smoothRotation = this.easeFloat2((360 - this.rotation), this.smoothRotation, 0.85)
 		this.smoothPosition.x = this.easeFloat2(this.x, this.smoothPosition.x, alpha)
-   		this.smoothPosition.y = this.easeFloat2(this.y, this.smoothPosition.y, alpha)
+		this.smoothPosition.y = this.easeFloat2(this.y, this.smoothPosition.y, alpha)
 		this.angle = Math.atan2(this.smoothPosition.y - windowHeight/2, this.smoothPosition.x - windowWidth/2) * 180 / Math.PI
 		this.oldPos.x = this.smoothPosition.x
 		this.oldPos.y = this.smoothPosition.y
@@ -863,8 +869,10 @@ class TrackedDevice{
 		stroke(40,40,40);
 		strokeWeight(8);
 		translate(this.smoothPosition.x, this.smoothPosition.y);
+
 		fill(this.color);
 		ellipse(0, 0, radius+70, radius+70,50);
+
 		let angle = map(this.smoothRotation, 20, 340, PI, 2*PI);
 		for (let i=0; i <= n; i++) {
 			let lerpAngle = lerp(PI, 2*PI, i/10.0);
@@ -877,7 +885,6 @@ class TrackedDevice{
 
 			let x2 = 0  + (radius-30) * cos(lerpAngle);
 			let y2 = 0 + (radius-30) * sin(lerpAngle);
-
 
 			//noStroke();
 
@@ -918,27 +925,28 @@ class TrackedDevice{
 
 		// DISPLAY DEGREES OF ROTATION
 		push()
-			translate(this.smoothPosition.x+rotX, this.smoothPosition.y+rotY)
-			rotate(radians(this.smoothRotation))
-			fill(255,255,100)
-			textSize(30)
-			// text(Math.round(this.smoothRotation,3) + " , " + Math.round(this.smoothPosition.x) + " , " + Math.round(this.smoothPosition.y), 30,10)
-			text(Math.round(this.smoothRotation,3), 30,10)
+		translate(this.smoothPosition.x+rotX, this.smoothPosition.y+rotY)
+		rotate(radians(this.smoothRotation))
+		fill(255,255,100)
+		textSize(30)
+		// text(Math.round(this.smoothRotation,3) + " , " + Math.round(this.smoothPosition.x) + " , " + Math.round(this.smoothPosition.y), 30,10)
+		text(Math.round(this.smoothRotation,3), 30,10)
 		pop()
 
 		// DISPLAY LABEL
 		//this.thisLabel.update(this.smoothPosition.x,this.smoothPosition.y,this.sizeL, this.smoothRotation + 120)
 		//noStroke()
+
 	}
 	calculateRange(){
 		this.update()
-		
+
 		// CONDITION DEVICE OUT OF DRAWING RANGE
 		if(this.smoothPosition.x > windowWidth || this.smoothPosition.x < 0 || this.smoothPosition.y>windowHeight || this.smoothPosition.y<0){
 			// uncomment this to draw a line between the center of the drawing area and the center of the tracked device
 			// strokeWeight(2)
 			// stroke(0,255,0)
-			// line(windowWidth/4,windowHeight/2, this.smoothPosition.x,this.smoothPosition.y)	
+			// line(windowWidth/4,windowHeight/2, this.smoothPosition.x,this.smoothPosition.y)
 			push()
 			translate(windowWidth/2,height/2)
 			rotate(radians(this.angle))
@@ -953,20 +961,20 @@ class TrackedDevice{
 		}
 	}
 	easeFloat (target, value, alpha = 0.1) {
-    	const d = target - value
-    	return value + (d * alpha)
-  	}
-	easeFloat2 (target, value, alpha ){
-	value = value * alpha + target *(1-alpha)
-	return value
+		const d = target - value
+		return value + (d * alpha)
 	}
-  	easeFloatCircular (target, value, maxValue, alpha = 0.1) {
-    	let delta = target - value
-    	const altDelta = maxValue - Math.abs(delta)
+	easeFloat2 (target, value, alpha ){
+		value = value * alpha + target *(1-alpha)
+		return value
+	}
+	easeFloatCircular (target, value, maxValue, alpha = 0.1) {
+		let delta = target - value
+		const altDelta = maxValue - Math.abs(delta)
 
-    	if (Math.abs(altDelta) < Math.abs(delta)) {
-      		delta = altDelta * (delta < 0 ? 1 : -1)
-    	}
+		if (Math.abs(altDelta) < Math.abs(delta)) {
+			delta = altDelta * (delta < 0 ? 1 : -1)
+		}
 		return value + (delta * alpha)
 	}
 	radians (degrees) {
@@ -1032,14 +1040,14 @@ class Label{
 		if(!this.labelOff){
 			this.show()
 		}
-		
+
 		this.oldRotation = this.rotation
 
 	}
 
 	show(){
 		// mapping the rotation of the tracked device to the position of the text array
-		// if rotation 120 
+		// if rotation 120
 		let txtContent =[
 			"I'M A PROTOTYPE FOR TANGIBLE INTERACTION AND DATA VISUALIZATION",
 			"MOVE ME AROUND TO EXPLORE MY AFFORDANCES!",
@@ -1048,8 +1056,8 @@ class Label{
 			"PROTOTYPING"
 		]
 		let peak = 10
-		
-		
+
+
 		let offX=120
 		let offY=0
 		push()
@@ -1081,8 +1089,3 @@ function easeFloat (target, value, alpha ){
 	value = value * alpha + target *(1-alpha)
 	return value
 }
-
-
-
-
-

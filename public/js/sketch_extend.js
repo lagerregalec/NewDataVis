@@ -1,47 +1,47 @@
-
 // check image, iterate through pixels, extract data (brightness) from each pixel and 
 // construct the object from the DataPointGeoTIFF class and push(add) it the corresponding array
 
 function dataFromTIFFtoArray(_img,  _pntsFromTIFF, _scale) {
-  _img.loadPixels()
-  let step = 2
-  console.log(_img.width , _img.height)
-  for(let x = 0; x < _img.width; x+=step) {
-    for(let y = 0; y < _img.height; y+=step) {
-      let [r, g, b] = _img.get(x, y)
-  //     // let c = _img.pixels[i*4]
-    
-      let brghtnss = ( r + g + b ) / 3 
-  //     // let x = i % _img.width
-  //     // let y = (i-x)/_img.width
+    _img.loadPixels()
+    let step = 2
+    console.log(_img.width , _img.height)
+    for(let x = 0; x < _img.width; x+=step) {
+        for(let y = 0; y < _img.height; y+=step) {
+            let [r, g, b] = _img.get(x, y)
+            //     // let c = _img.pixels[i*4]
 
-      //     // mapping values from x y - longitude and latitude
-      let lon = map(x,0, _img.width,180,-180)
-      let lat = map(y,0, _img.height,90,-90)
-      // log data on the console
-      // console.log(lon , lat , r , g , b, brghtnss)
-      // creating datapoint object and pushing it to the arraylist in case
-      _pntsFromTIFF.push(new DataPointGeoTIFF(lon, lat, brghtnss, _scale ))
+            let brghtnss = ( r + g + b ) / 3
+            //     // let x = i % _img.width
+            //     // let y = (i-x)/_img.width
+
+            //     // mapping values from x y - longitude and latitude
+            let lon = map(x,0, _img.width,180,-180)
+            let lat = map(y,0, _img.height,90,-90)
+            // log data on the console
+            // console.log(lon , lat , r , g , b, brghtnss)
+            // creating datapoint object and pushing it to the arraylist in case
+            _pntsFromTIFF.push(new DataPointGeoTIFF(lon, lat, brghtnss, _scale ))
+        }
     }
-  }
-  _img.updatePixels()
+    _img.updatePixels()
 
 }
 // function iterates through the objects inside the corresponding array 
 // and calls the function display(...) from each object
 function visualizeDataFromTIFF(_pntsFromTIFF, _visFlag, _c){
-  _pntsFromTIFF.forEach(element => {
-      if(_visFlag){
-      if(element.lat > treePlanter) {
-          element.display(_visFlag, _c)
-      }} else {
-          element.display(_visFlag, _c)
+    _pntsFromTIFF.forEach(element => {
+        if(_visFlag){
+            if(element.lat > treePlanter) {
+                element.display(_visFlag, _c)
+            }} else {
+            element.display(_visFlag, _c)
 
-      }
-      })
+        }
+    })
 }
 // a class to store each Pixel as data point
 class DataPointGeoTIFF {
+
 
   // parameters: lon lat are location values in degrees,  _value corresponds to brightness, and scale the factor affecting the size in the visualization
   constructor( _lon,  _lat,  _value,  _scale){
@@ -123,7 +123,7 @@ class DataPointGeoTIFF {
       }
     }else{
       // do something else  when the value (brightness is 0 or black or no information)
-    }
-  }
 
-} 
+    }
+
+}
