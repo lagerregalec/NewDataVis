@@ -841,21 +841,64 @@ class TrackedDevice{
 		this.oldPos.y = this.smoothPosition.y
 	}
 	show(){
-		let radius = 45
+		let radius = 90
+		let n = 10
+		let size = 2
 		let lSize = map(this.smoothRotation,0,360,10,75)
 		let rotX = (0 + radius) * Math.cos(radians(this.smoothRotation))
 		let rotY = (0+ radius) * Math.sin(radians(this.smoothRotation))
 
+		push();
+		translate(this.smoothPosition.x, this.smoothPosition.y);
+		let angle = map(this.smoothRotation, 20, 340, PI, 2*PI);
+		for (let i=0; i <= n; i++) {
+			let lerpAngle = lerp(PI, 2*PI, i/10.0);
+			let x = 0 + cos(angle)*radius*0.55;
+			let y = 0 + sin(angle)*radius*0.55;
+			//rect(x, y, 20, 20);
+
+			let x1 = 0  + (radius-20) * cos(lerpAngle);
+			let y1 = 0 + (radius-20) * sin(lerpAngle);
+
+			let x2 = 0  + (radius-30) * cos(lerpAngle);
+			let y2 = 0 + (radius-30) * sin(lerpAngle);
+			stroke(40,40,40);
+			strokeWeight(1);
+
+			//noStroke();
+
+
+
+			if (angle>=lerpAngle) {
+				line(x1, y1, x2, y2);
+			}
+
+			push();
+			translate(x,y);
+			rotate(map(this.smoothRotation,20,340,0,PI));
+			fill(227,6,19);
+			beginShape();
+			vertex(5,-5*size);
+			vertex(5,5*size);
+			vertex(-5*size,0);
+			endShape(CLOSE);
+			pop();
+
+		}
+		fill(0);
+		ellipse(0, 0, radius, radius);
+		pop();
+
 		fill(255,255,100, 25+map(this.smoothRotation,0,360,0,150))
-		noStroke()
-		ellipse(this.smoothPosition.x,this.smoothPosition.y,radius*2 + lSize,radius*2 + lSize)
-		fill(255,255,100)
-		stroke(0)
-		strokeWeight(10)
-		circle(this.smoothPosition.x ,this.smoothPosition.y , radius*2)
-		stroke(0)
-		strokeWeight(10)
-		line(this.smoothPosition.x , this.smoothPosition.y  , this.smoothPosition.x + rotX, this.smoothPosition.y + rotY)
+		//noStroke()
+		ellipse(this.smoothPosition.x,this.smoothPosition.y,90 + lSize,90 + lSize)
+		//fill(255,255,100)
+		//stroke(0)
+		//strokeWeight(10)
+		//circle(this.smoothPosition.x ,this.smoothPosition.y , radius*2)
+		//stroke(0)
+		//strokeWeight(10)
+		//line(this.smoothPosition.x , this.smoothPosition.y  , this.smoothPosition.x + rotX, this.smoothPosition.y + rotY)
 
 		// DISPLAY DEGREES OF ROTATION
 		push()
