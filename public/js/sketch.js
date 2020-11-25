@@ -456,6 +456,7 @@ function listenMessages(){
 		myIds.splice(0, 1);
 		trackedDevices.push(thisDevice)
 		createHTML(data.id)
+
 	})
 	socket.on('updateDevice', function(data){
 		let id = data.id
@@ -567,16 +568,22 @@ function show2D() {
 
 // this function creates an HTML div element assigns the class trackedDivs to it, passes the uniqueId as id and adds some text inside
 function createHTML(id){
+	if (id == 1) {
+		let template = `
+			<div class="window">
+				${id}
+			</div>
+		`
+	} else if (id == 2){
+
+		let template =
+	}
+
 	let buttonDiv1 = document.createElement("div")   // creating a new div
 	buttonDiv1.className = "trackedDivs"
-	buttonDiv1.innerHTML = "-2 GT"
+	buttonDiv1.innerHTML = template;
 	buttonDiv1.id = id
 	document.body.appendChild(buttonDiv1)
-	let buttonDiv2 = document.createElement("div")   // creating a new div
-	buttonDiv2.className = "trackedDivs"
-	buttonDiv2.innerHTML = "-2 GT"
-	buttonDiv2.id = id2
-	document.body.appendChild(buttonDiv2)
 }
 
 // this function update the position and labels of the tracked devices
@@ -584,7 +591,6 @@ function updateHTML(x_pos, y_pos,tracked_id){
 	let trackedDivs = document.getElementsByClassName("trackedDivs")
 	Array.prototype.forEach.call(trackedDivs, function(element) {
 		if(element.id == tracked_id){
-
 			element.style.left = (x_pos-70)+'px';
 			element.style.top = (y_pos-190)+'px';
 		}
@@ -594,12 +600,14 @@ function updateHTML(x_pos, y_pos,tracked_id){
 		}
 	})
 }
+
 // this function destroys the html elements which are not used anymore, to avoid accumulating appended children
 function destroyHTML(tracked_id){
 
 	// should remove the HTML elements from past tracked devices that are not in use any more
 	let trackedDivs = document.getElementsByClassName("trackedDivs")
 	Array.prototype.forEach.call(trackedDivs, function(element) {
+
 		if(element.id == tracked_id){
 			// search for a function to actually remove an element from HTML
 			element.remove()
