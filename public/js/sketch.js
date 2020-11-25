@@ -8,6 +8,7 @@
 // https://github.com/processing/p5.js/issues/1553 -> solving the 2d Projection of 3d points
 // https://www.keene.edu/campus/maps/tool/ -> drawing earth maps and converting them into latitude longitude
 
+let istokenActive = false
 let treePlanter
 let mousePositionX
 let mousePositionY
@@ -24,6 +25,7 @@ let r = 400
 let easycam 
 let pOI = [] 
 let pOI2 = []
+let startRotation = [0.95,0.3,0,0]
 
 let socket = io() 
 
@@ -164,7 +166,7 @@ function getRandomColor(){
 
 function preload() {
 
-  	earthImg = loadImage('../imgs/earth_min4.jpg')
+  	earthImg = loadImage('../imgs/earth_min4.png')
 	ImgWidth = windowWidth*2
 	ImgHeight = windowHeight*2
 	sky = loadImage('../imgs/sky.jpg') 
@@ -183,7 +185,7 @@ function preload() {
 		// console.log('new client connected id:' + data.id) 
 	}) 
 	
-	myFont = loadFont('assets/Futura-Lig.otf')
+
 	openFullscreen()
 	init()
 
@@ -194,7 +196,7 @@ function setup() {
 
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL) 
 	noStroke()
-	textFont(myFont)
+
 	// resizing / downscaling the resolution of the image-data
 	co2.resize(windowWidth/14, windowHeight/14)
 	refrst.resize(windowWidth/14, windowHeight/14)
@@ -203,7 +205,7 @@ function setup() {
 		easycam = new Dw.EasyCam(this._renderer, {distance:2000, center:[0,0,0]})
 		easycam.setDistanceMin(100)
 		easycam.setDistanceMax(r*60)
-
+		easycam.setRotation(startRotation,50)
 		easycam.setRotationConstraint(false,true,false)
 		easycamIntialized=true
 	}
@@ -316,7 +318,7 @@ function setup() {
 
 let smooth
 function draw() {
-	console.log(tokenPositionX)
+	console.log(easycam.getRotation())
   	background(bckColor)
 	// let user = createVector(mouseX,mouseY)
 	show3D()
@@ -331,7 +333,7 @@ function draw() {
 		mousePositionX = map(touchX,0,windowWidth,-windowWidth,windowWidth)
 		mousePositionY = map(touchY,0,windowHeight,-windowHeight,windowHeight)
 	}
-	if(tokenPositionX>0){
+	if(istokenActive){
 	easycam.setCenter([tokenPositionX,tokenPositionY,0],0.0)}else{
 		easycam.setCenter([mousePositionX,mousePositionY,0],0.0)}
 
@@ -497,7 +499,9 @@ function show2D() {
 	image(earthImg,-ImgWidth / 2,-ImgHeight/2,ImgWidth, ImgHeight)
 
 	if(zoom > 0){
-	easycam.setDistance(zoom)}
+	easycam.setDistance(zoom,50)
+		}
+
 	easycam.beginHUD()
 
 	if(isTouch){
@@ -533,29 +537,31 @@ function show2D() {
 				element.show()
 				if(element.id == 'information'){
 					treePlanter = map(element.smoothRotation,0,360,-90,90)
-
+					element.color = color(40,121,53)
+					//hereIam
 				}
 
 				if(element.id == 'navigation'){
 					console.log(element)
-					//perspectiveShift = map(element.smoothRotation,0,360,-0.1,0.1)
-					tokenPositionX = element.smoothPosition.x
+					istokenActive = true
+					tokenPositionX = map(element.smoothPosition.x,0,width,-width,width)
 					tokenPositionY = element.smoothPosition.y
 					zoom = map(element.smoothRotation,20,340,3000,500)
+					element.color = color(222)
 
 				}
-				fill(200,0,0)
-				ellipse(element.smoothPosition.x + 100, element.smoothPosition.y+100, 20,20)
+				//fill(200,0,0)
+				//ellipse(element.smoothPosition.x + 100, element.smoothPosition.y+100, 20,20)
 				// if(elemnt.uniqueId == 52){ /* example of a loop accessing an specific uniqueId  to do something specific */}
 				// access the identifier : element.identifier // changes everytime you add or create a new object on screen
 				// access the uniqueId : element.uniqueId // stays the same always for each tracked object
-				text(element.uniqueId, element.smoothPosition.x + 120, element.smoothPosition.y + 120)
-				console.log(perspectiveShift)
+				//text(element.uniqueId, element.smoothPosition.x + 120, element.smoothPosition.y + 120)
+
 			}
-			updateHTML(element.smoothPosition.x, element.smoothPosition.x,element.uniqueId)
+			updateHTML(element.smoothPosition.x, element.smoothPosition.y,element.uniqueId)
 		})
 	}
-	easycam.rotateX(perspectiveShift,10);
+
 	easycam.endHUD()
 }
 
@@ -572,8 +578,8 @@ function updateHTML(x_pos, y_pos,tracked_id){
 	let trackedDivs = document.getElementsByClassName("trackedDivs")
 	Array.prototype.forEach.call(trackedDivs, function(element) {
 		if(element.id == tracked_id){
-			element.style.left = x_pos+'px';
-			element.style.top = y_pos+'px';
+			element.style.left = (x_pos)+'px';
+			element.style.top = (y_pos-120)+'px';
 		}
 	})
 }
@@ -831,6 +837,9 @@ class TrackedDevice{
 		this.sizeL = 180
 		this.thisLabel = new Label()
 		this.oldPos = createVector(0,0)
+		this.color = color(0,0,0)
+
+
 		
 	}
 	update(){
@@ -854,9 +863,11 @@ class TrackedDevice{
 
 
 		push();
+		stroke(40,40,40);
+		strokeWeight(8);
 		translate(this.smoothPosition.x, this.smoothPosition.y);
-		fill(40,121,53);
-		ellipse(0, 0, radius+70, radius+70);
+		fill(this.color);
+		ellipse(0, 0, radius+70, radius+70,50);
 		let angle = map(this.smoothRotation, 20, 340, PI, 2*PI);
 		for (let i=0; i <= n; i++) {
 			let lerpAngle = lerp(PI, 2*PI, i/10.0);
@@ -869,8 +880,7 @@ class TrackedDevice{
 
 			let x2 = 0  + (radius-30) * cos(lerpAngle);
 			let y2 = 0 + (radius-30) * sin(lerpAngle);
-			stroke(40,40,40);
-			strokeWeight(3);
+
 
 			//noStroke();
 
@@ -884,6 +894,8 @@ class TrackedDevice{
 			translate(x,y);
 			rotate(map(this.smoothRotation,20,340,0,PI));
 			fill(227,6,19);
+			stroke(44,44,44)
+			strokeWeight(2)
 			beginShape();
 			vertex(5,-5*size);
 			vertex(5,5*size);
@@ -896,9 +908,9 @@ class TrackedDevice{
 		ellipse(0, 0, radius, radius);
 		pop();
 
-		fill(255,255,100, 25+map(this.smoothRotation,0,360,0,150))
+		//fill(255,255,100, 25+map(this.smoothRotation,0,360,0,150))
 		//noStroke()
-		ellipse(this.smoothPosition.x,this.smoothPosition.y,90 + lSize,90 + lSize)
+		//ellipse(this.smoothPosition.x,this.smoothPosition.y,90 + lSize,90 + lSize)
 		//fill(255,255,100)
 		//stroke(0)
 		//strokeWeight(10)
