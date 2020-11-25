@@ -841,7 +841,7 @@ class TrackedDevice{
 		this.oldPos.y = this.smoothPosition.y
 	}
 	show(){
-		let radius = 90
+		let radius = 110
 		let n = 10
 		let size = 2
 		let lSize = map(this.smoothRotation,0,360,10,75)
@@ -850,6 +850,8 @@ class TrackedDevice{
 
 		push();
 		translate(this.smoothPosition.x, this.smoothPosition.y);
+		fill(40,121,53);
+		ellipse(0, 0, radius+70, radius+70);
 		let angle = map(this.smoothRotation, 20, 340, PI, 2*PI);
 		for (let i=0; i <= n; i++) {
 			let lerpAngle = lerp(PI, 2*PI, i/10.0);
@@ -863,7 +865,7 @@ class TrackedDevice{
 			let x2 = 0  + (radius-30) * cos(lerpAngle);
 			let y2 = 0 + (radius-30) * sin(lerpAngle);
 			stroke(40,40,40);
-			strokeWeight(1);
+			strokeWeight(3);
 
 			//noStroke();
 
