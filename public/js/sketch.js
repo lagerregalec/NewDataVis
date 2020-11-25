@@ -89,7 +89,6 @@ function openFullscreen() {
 	}
 }
 
-
 /* Close fullscreen */
 function closeFullscreen() {
 	if (document.exitFullscreen) {
@@ -102,7 +101,6 @@ function closeFullscreen() {
 		document.msExitFullscreen()
 	}
 }
-
 
 function init(){
 
@@ -133,11 +131,6 @@ function handleMove(evt) {
 	touchY = evt.changedTouches[0].pageY
 }
 
-
-
-
-
-
 function ongoingTouchIndexById(idToFind) {
 	for (var i = 0; i < ongoingTouches.length; i++) {
 		var id = ongoingTouches[i].identifier
@@ -160,8 +153,6 @@ function getRandomColor(){
 	return "rgb("+rgb1 +","+rgb2 + ","+rgb3 +")"
 }
 
-
-
 function preload() {
 
 	earthImg = loadImage('../imgs/earth_min4.jpg')
@@ -174,16 +165,11 @@ function preload() {
 	co2 = loadImage('assets/data/co2_emissions.png')
 	refrst = loadImage('assets/data/geodata_ref_potential.png')
 
-
-
-
-
 	socket.on('connected',function(data){
 		// do something in case another node is connected
 		// console.log('new client connected id:' + data.id)
 	})
 
-	myFont = loadFont('assets/Futura-Lig.otf')
 	openFullscreen()
 	init()
 
@@ -194,7 +180,6 @@ function setup() {
 
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL)
 	noStroke()
-	textFont(myFont)
 	// resizing / downscaling the resolution of the image-data
 	co2.resize(windowWidth/14, windowHeight/14)
 	refrst.resize(windowWidth/14, windowHeight/14)
@@ -544,15 +529,12 @@ function show2D() {
 					zoom = map(element.smoothRotation,20,340,3000,500)
 
 				}
-				fill(200,0,0)
-				ellipse(element.smoothPosition.x + 100, element.smoothPosition.y+100, 20,20)
 				// if(elemnt.uniqueId == 52){ /* example of a loop accessing an specific uniqueId  to do something specific */}
 				// access the identifier : element.identifier // changes everytime you add or create a new object on screen
 				// access the uniqueId : element.uniqueId // stays the same always for each tracked object
-				text(element.uniqueId, element.smoothPosition.x + 120, element.smoothPosition.y + 120)
 				console.log(perspectiveShift)
 			}
-			updateHTML(element.smoothPosition.x, element.smoothPosition.x,element.uniqueId)
+			updateHTML(element.smoothPosition.x, element.smoothPosition.y,element.uniqueId)
 		})
 	}
 	easycam.rotateX(perspectiveShift,10);
@@ -563,7 +545,7 @@ function show2D() {
 function createHTML(id){
 	let testDiv = document.createElement("div")   // creating a new div
 	testDiv.className = "trackedDivs"
-	testDiv.innerHTML = "I'm a new div"
+	testDiv.innerHTML = "-2 GT"
 	testDiv.id = id
 	document.body.appendChild(testDiv)
 }
@@ -572,8 +554,8 @@ function updateHTML(x_pos, y_pos,tracked_id){
 	let trackedDivs = document.getElementsByClassName("trackedDivs")
 	Array.prototype.forEach.call(trackedDivs, function(element) {
 		if(element.id == tracked_id){
-			element.style.left = x_pos+'px';
-			element.style.top = y_pos+'px';
+			element.style.left = (x_pos+120)+'px';
+			element.style.top = (y_pos-70)+'px';
 		}
 	})
 }
@@ -612,7 +594,6 @@ function setMap(map, mapPoints, screenMapPoints){
 		let screenPoint = screenPosition(-point.x,point.y,point.z)
 		let screen2DVector = createVector(screenPoint.x,screenPoint.y)
 		screenMapPoints.push(screen2DVector)
-
 
 	}
 

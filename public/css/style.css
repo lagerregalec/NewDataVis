@@ -56,14 +56,10 @@ b2 {
     left: 0;
     width: 50%;
     height: 20px;
-    background-color: #0000ff;
+    background-color: #ffffff;
     overflow: hidden;
     transition: height 0.2s;
     display: none;
-}
-
-#testLabel:hover {
-    height: 100px;
 }
 
 #testLabel p {
@@ -84,21 +80,17 @@ b2 {
 }
 
 .trackedDivs {
-    background-color: #00ff00 !important;
-    width: 50px !important;
-    transition: background-color 0.5s, width 0.5s;
+    width: 50px;
     position: absolute;
-    background-color: #ff0000;
+    background-color: #ffffff;
+    color: #000000;
     width: 100px;
+    padding: 20px !important;
     height: 100px;
-    color: #ffffff;
     z-index: 10000;
+    border: 1px solid rgba(0, 0, 0, 1);
 }
 
-.trackedDivs:hover {
-    background-color: #0000ff !important;
-    width: 250px !important;
-}
 
 #info p {
     color: #00000;
