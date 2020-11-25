@@ -164,7 +164,7 @@ function getRandomColor(){
 
 function preload() {
 
-  	earthImg = loadImage('../imgs/Map_V1.png')
+  	earthImg = loadImage('../imgs/earth_min4.jpg')
 	ImgWidth = windowWidth*2
 	ImgHeight = windowHeight*2
 	sky = loadImage('../imgs/sky.jpg') 
