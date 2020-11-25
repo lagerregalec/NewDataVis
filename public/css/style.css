@@ -338,6 +338,7 @@ b2 {
 	position: absolute;
 	top: 51%;
 	left: 45%;
+    z-index: 100001;
 }
 
 #infoDiv {
@@ -346,6 +347,7 @@ b2 {
 	position: absolute;
 	top: 51%;
 	left: 62%;
+    z-index: 100001;
 }
 
 .window {
