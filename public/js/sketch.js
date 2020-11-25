@@ -163,7 +163,7 @@ function getRandomColor(){
 
 function preload() {
 
-  	earthImg = loadImage('../imgs/Map_V1.png')
+  	earthImg = loadImage('../imgs/Map_V1.svg')
 	ImgWidth = windowWidth*2
 	ImgHeight = windowHeight*2
 	sky = loadImage('../imgs/sky.jpg') 
@@ -445,7 +445,6 @@ function windowResized() {
   	resize()
 }
 
-let myIds = ['navigation','information'];
 // LISTEN FOR NEW TRACKED DEVICES AND UPDATES
 function listenMessages(){
 
@@ -455,8 +454,6 @@ function listenMessages(){
 		thisDevice.x = data.x * windowWidth
 		thisDevice.y = data.y * windowHeight
 		thisDevice.rotation = data.rot
-		thisDevice.id = myIds[0];
-		myIds.splice(0, 1);
 		trackedDevices.push(thisDevice)
 		createHTML(data.id)
 	}) 
@@ -474,11 +471,9 @@ function listenMessages(){
 		let id = data.id 
 		trackedDevices.forEach( function(element,index) {
 			if(element.uniqueId == id ){
-				myIds.push(element.id);
 				trackedDevices.splice(index,1)
 			}
 		})
-		delete myIds[id];
 		destroyHTML(data.id)
 	}) 
 }
@@ -528,14 +523,14 @@ function show2D() {
 		trackedDevices.forEach(element =>{
 			if(element.inRange){
 				element.show()
-				if(element.id == 'information'){
+				if(element.uniqueId == 3){
 					treePlanter = map(element.smoothRotation,0,360,-90,90)
 
 				}
 
-				if(element.id == 'navigation'){
+				if(element.uniqueId == 2){
 					console.log(element)
-					//perspectiveShift = map(element.smoothRotation,0,360,-0.1,0.1)
+					perspectiveShift = map(element.smoothRotation,0,360,-0.1,0.1)
 					tokenPositionX = element.smoothPosition.x
 					tokenPositionY = element.smoothPosition.y
 
@@ -918,7 +913,7 @@ class TrackedDevice{
 		this.update()
 		
 		// CONDITION DEVICE OUT OF DRAWING RANGE
-		if(this.smoothPosition.x > windowWidth || this.smoothPosition.x < 0 || this.smoothPosition.y>windowHeight || this.smoothPosition.y<0){
+		if(this.smoothPosition.x > windowWidth/2 || this.smoothPosition.x < 0 || this.smoothPosition.y>windowHeight/2 || this.smoothPosition.y<0){
 			// uncomment this to draw a line between the center of the drawing area and the center of the tracked device
 			// strokeWeight(2)
 			// stroke(0,255,0)
