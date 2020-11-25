@@ -543,7 +543,6 @@ function show2D() {
 
 // this function creates an HTML div element assigns the class trackedDivs to it, passes the uniqueId as id and adds some text inside
 function createHTML(id){
-<<<<<<< Updated upstream
 	let buttonDiv1 = document.createElement("div")   // creating a new div
 	buttonDiv1.className = "trackedDivs"
 	buttonDiv1.innerHTML = "-2 GT"
@@ -554,29 +553,7 @@ function createHTML(id){
 	buttonDiv2.innerHTML = "-2 GT"
 	buttonDiv2.id = id2
 	document.body.appendChild(buttonDiv2)
-=======
-	/* if (id == 1) {
-		let template = `
-			<div id="trackedDivs">
-				<h1>"-5 GT";</h1>
-			</div>
-			
-			<!-- <div id="trackedDivs">
-				<h1>"-5 GT";</h1>
-				 ${id}
-			</div> -->
-			
-		`}
-	/*} else if (id == 2){
 
-		/*let template =
-	} */
-	let buttonDiv = document.createElement("div")   // creating a new div
-	buttonDiv1.idName = "trackedDivs"
-	buttonDiv1.innerHTML = "-5 GT";
-	buttonDiv1.id = id
-	document.body.appendChild(buttonDiv)
->>>>>>> Stashed changes
 }
 
 // this function update the position and labels of the tracked devices
