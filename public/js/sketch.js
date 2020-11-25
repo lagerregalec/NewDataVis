@@ -14,6 +14,7 @@ let mousePositionY
 let tokenPositionX
 let tokenPositionY
 let perspectiveShift
+let zoom = 0
 let earthImg
 let ImgWidth
 let ImgHeight
@@ -195,8 +196,8 @@ function setup() {
 	noStroke()
 	textFont(myFont)
 	// resizing / downscaling the resolution of the image-data
-	co2.resize(windowWidth/8, windowHeight/8)
-	refrst.resize(windowWidth/8, windowHeight/8)
+	co2.resize(windowWidth/14, windowHeight/14)
+	refrst.resize(windowWidth/14, windowHeight/14)
 
 	if(!easycamIntialized){
 		easycam = new Dw.EasyCam(this._renderer, {distance:2000, center:[0,0,0]})
@@ -495,6 +496,8 @@ function show2D() {
 	let testPoint2Ref = createVector(testPoint2.x,testPoint2.y)
 	image(earthImg,-ImgWidth / 2,-ImgHeight/2,ImgWidth, ImgHeight)
 
+	if(zoom > 0){
+	easycam.setDistance(zoom)}
 	easycam.beginHUD()
 
 	if(isTouch){
@@ -538,6 +541,7 @@ function show2D() {
 					//perspectiveShift = map(element.smoothRotation,0,360,-0.1,0.1)
 					tokenPositionX = element.smoothPosition.x
 					tokenPositionY = element.smoothPosition.y
+					zoom = map(element.smoothRotation,20,340,3000,500)
 
 				}
 				fill(200,0,0)
@@ -563,7 +567,7 @@ function createHTML(id){
 	testDiv.id = id           
 	document.body.appendChild(testDiv)
 }
-// this function update the position and labesl of the tracked devices
+// this function update the position and labels of the tracked devices
 function updateHTML(x_pos, y_pos,tracked_id){
 	let trackedDivs = document.getElementsByClassName("trackedDivs")
 	Array.prototype.forEach.call(trackedDivs, function(element) {
@@ -847,6 +851,7 @@ class TrackedDevice{
 		let lSize = map(this.smoothRotation,0,360,10,75)
 		let rotX = (0 + radius) * Math.cos(radians(this.smoothRotation))
 		let rotY = (0+ radius) * Math.sin(radians(this.smoothRotation))
+
 
 		push();
 		translate(this.smoothPosition.x, this.smoothPosition.y);
