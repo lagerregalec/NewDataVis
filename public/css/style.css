@@ -27,6 +27,7 @@ body {
     font-family: 'akzidenz-grotesk-reg', Arial, sans-serif;
     line-height: 1.5;
     color: #000000;
+}
 
 /* Text styles */
 
@@ -99,16 +100,6 @@ b2 {
     width: 250px !important;
 }
 
-#info {
-    width: 200px;
-    height: 300px;
-    padding: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100001;
-}
-
 #info p {
     color: #00000;
     font-size: 14px;
@@ -146,6 +137,7 @@ b2 {
     stroke-width: 2;
     border: 1px solid rgba(0, 0, 0, 1);
     padding: 20px !important;
+    z-index: 10001;
 }
 
 .token {
@@ -159,6 +151,7 @@ b2 {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border: 1px solid rgba(0, 0, 0, 1);
+    z-index: 10001;
 }
 
 .infoButtonParent {

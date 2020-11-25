@@ -182,7 +182,7 @@ function preload() {
 		// console.log('new client connected id:' + data.id) 
 	}) 
 	
-	myFont = loadFont('assets/Futura-Lig.otf')
+	//myFont = loadFont('assets/Futura-Lig.otf')
 	openFullscreen()
 	init()
 
@@ -193,7 +193,7 @@ function setup() {
 
 	canvas = createCanvas(windowWidth, windowHeight, WEBGL) 
 	noStroke()
-	textFont(myFont)
+	//textFont(myFont)
 	// resizing / downscaling the resolution of the image-data
 	co2.resize(windowWidth/8, windowHeight/8)
 	refrst.resize(windowWidth/8, windowHeight/8)
