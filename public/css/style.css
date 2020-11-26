@@ -136,7 +136,7 @@ b2 {
 }
 
 #info p {
-    color: #00000;
+    color: #000000;
 }
 
 /* {
@@ -184,6 +184,17 @@ b2 {
     width: 100px;
     height: 40px;
     padding: 20px !important;
+    z-index: 10000;
+    border: 2px solid rgba(0, 0, 0, 1);
+}
+
+.interactiveButton {
+    position: absolute;
+    background-color: #ffffff;
+    color: #000000;
+    width: 100px;
+    height: 40px;
+    padding: 10px !important;
     z-index: 10000;
     border: 2px solid rgba(0, 0, 0, 1);
 }
