@@ -160,7 +160,7 @@ function getRandomColor() {
 }
 
 function preload() {
-
+    myFont = loadFont('../assets/Theinhardt-RegularIta.otf')
     earthImg = loadImage('../imgs/earth_min4.png')
     ImgWidth = windowWidth * 2
     ImgHeight = windowHeight * 2
@@ -351,6 +351,7 @@ function draw() {
     }
 	show3D()
 	show2D()
+
 }
 
 function showFlatPointsOfInterest() {
@@ -507,7 +508,6 @@ function show2D() {
     }
     	easycam.setRotation(startRotation, 100)
 		easycam.beginHUD()
-
     if (isTouch) {
         fill(0, 0, 255, 100)
         circle(touchX, touchY, 50)
@@ -569,7 +569,7 @@ function show2D() {
             updateHTML(element.smoothPosition.x, element.smoothPosition.y, element.id)
         })
     }
-
+    legend()
     easycam.endHUD()
 }
 

@@ -39,6 +39,46 @@ function visualizeDataFromTIFF(_pntsFromTIFF, _visFlag, _c){
         }
     })
 }
+
+function legend() {
+
+    push()
+    translate(width/19.2,height/10.8)
+
+    push()
+    rectMode(CENTER)
+    translate(width - width / 9.5 + 22.5, height - height / 5)
+    rotateX(180)
+    fill(255)
+    rect(0+width/300, 0 + height / 24, width/18, height / 2.7)
+    stroke(44, 44, 44, 255)
+    noFill()
+    strokeWeight(2)
+    rect(0+width/300, 0 + height / 24, width/18, height / 2.7)
+
+    pop()
+
+    push()
+    translate(width - width / 9, height - height / 4.2)
+    fill(40, 121, 53, 255)
+    rotateX(180)
+    cone(width/256, height / 4)
+    pop()
+
+    push()
+    translate(width - width / 10 + 45, height - height / 4.2)
+    fill(44, 44, 44, 255)
+    textFont(myFont)
+    textSize(20)
+    text('height corresponds'+'\n'+ 'to the quantity',-width/36, 0 + height / 10)
+    //text('CO2 Emissions',0, height / 7)
+    rotateX(180)
+    cylinder(width/256, height / 4)
+    pop()
+
+    pop()
+}
+
 // a class to store each Pixel as data point
 class DataPointGeoTIFF {
 
