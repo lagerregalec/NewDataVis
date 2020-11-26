@@ -160,7 +160,7 @@ function getRandomColor() {
 }
 
 function preload() {
-    myFont = loadFont('../assets/Theinhardt-RegularIta.otf')
+    myFont = loadFont('../assets/Theinhardt-Bold.otf')
     earthImg = loadImage('../imgs/earth_min4.png')
     ImgWidth = windowWidth * 2
     ImgHeight = windowHeight * 2
@@ -609,10 +609,10 @@ function updateHTML(x_pos, y_pos, tracked_id) {
             element.style.top = (y_pos - 270) + 'px';
 
             if(tracked_id == 'information'){
-            element.innerHTML = `${round(map(treePlanter,88,-88,0,200))}'000'000 trees`}
+            element.innerHTML = `<h3>${round(map(treePlanter,88,-88,0,200))}'000'000<h3><b3>trees planted<b3>`}
 
             if(tracked_id == 'navigation'){
-                element.innerHTML = "Navigation"}
+                element.innerHTML = "<h3>Navigation<h3>"}
 
         }
     })

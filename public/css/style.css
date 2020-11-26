@@ -56,6 +56,14 @@ h2 {
     color: #000000;
 }
 
+h3 {
+    /* Body 1 Text style */
+    font-family: 'Theinhardt-Bold';
+    font-size: 16pt;
+    line-height: 20pt;
+    color: #000000;
+}
+
 b1 {
     /* Body 1 Text style */
     font-family: 'Theinhardt-Regular';
