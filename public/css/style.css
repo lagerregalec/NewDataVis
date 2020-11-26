@@ -127,7 +127,7 @@ b3{
     position: absolute;
     top: 20%;
     left: 2%;
-    width: 10%;
+    width:15%;
     height: 17%;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
@@ -239,9 +239,9 @@ b3{
     stroke-width: 2;
     border: 2px solid rgba(0, 0, 0, 1);
     padding-top: 0% !important;
-    padding-left: 0.8% !important;
-    padding-right: 0.7% !important;
-    padding-bottom: 0.2% !important;
+    padding-left: 1% !important;
+    padding-right: 0.9% !important;
+    padding-bottom: 0.5% !important;
     z-index: 10001;
 }
 
