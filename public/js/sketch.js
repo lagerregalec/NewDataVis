@@ -609,7 +609,7 @@ function updateHTML(x_pos, y_pos, tracked_id) {
             element.style.top = (y_pos - 270) + 'px';
 
             if(tracked_id == 'information'){
-            element.innerHTML = `<h3>${round(map(treePlanter,88,-88,0,200))}'000'000<h3><b3>trees planted<b3>`}
+            element.innerHTML = `${round(map(treePlanter,88,-88,0,200))}'000'000 <br> trees planted`}
 
             if(tracked_id == 'navigation'){
                 element.innerHTML = "<h3>Navigation<h3>"}
