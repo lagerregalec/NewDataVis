@@ -92,10 +92,10 @@ b2 {
 #tutWindow1 {
     z-index: 100001;
     position: absolute;
-    top: 270px;
+    top: 250px;
     left: 20px;
     width: 300px;
-    height: 200px;
+    height: 250px;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
     display: block;
@@ -104,10 +104,10 @@ b2 {
 #tutWindow2 {
     z-index: 100001;
     position: absolute;
-    top: 270px;
+    top: 250px;
     left: 20px;
     width: 300px;
-    height: 200px;
+    height: 250px;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
     display: none;
@@ -117,10 +117,10 @@ b2 {
 #tutWindow3 {
     z-index: 100001;
     position: absolute;
-    top: 270px;
+    top: 250px;
     left: 20px;
     width: 300px;
-    height: 200px;
+    height: 250px;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
     display: none;
@@ -194,10 +194,10 @@ b2 {
     stroke: rgba(0, 0, 0, 1);
     stroke-width: 2;
     border: 2px solid rgba(0, 0, 0, 1);
-    padding-top: 10px !important;
+    padding-top: 0px !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
-    padding-bottom: 10px !important;
+    padding-bottom: 5px !important;
     z-index: 10001;
 }
 
@@ -221,8 +221,8 @@ b2 {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     position: absolute;
-    top: 45%;
-    left: 87%;
+    top: 80%;
+    left: 45%;
     background: rgba(255, 255, 255,0);
     border: 2px solid rgba(0, 0, 0, 1);
 }
@@ -233,7 +233,7 @@ b2 {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     position: absolute;
-    top: 7%;
+    top: 6%;
     left: 87%;
     background: rgba(255, 255, 255,0);
     border: 2px solid rgba(0, 0, 0, 1);
@@ -242,25 +242,29 @@ b2 {
 .showButton {
     width: 20px;
     height: 20px;
-    font-family: 'akzidenz-grotesk-bol', Arial, sans-serif;
+    font-family: 'Theinhardt-Bold';
+    font-size: 11pt;
+    line-height: 10pt;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     position: absolute;
-    top: 0%;
-    left: 0%;
-    background: rgb(255, 255, 255);
+    top: 5%;
+    left: -15%;
+    background: rgba(255, 255, 255,0);
     border: 2px solid rgba(0, 0, 0, 0);
 }
 
 .closeButton {
     width: 20px;
     height: 20px;
-    font-family: 'akzidenz-grotesk-bol', Arial, sans-serif;
+    font-family: 'Theinhardt-Bold';
+    font-size: 12pt;
+    line-height: 12pt;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     position: absolute;
-    top: 0%;
-    left: 0%;
-    background: rgb(255, 255, 255);
+    top: 1.5%;
+    left: -12%;
+    background: rgba(255, 255, 255, 0);
     border: 2px solid rgba(0, 0, 0, 0);
 }

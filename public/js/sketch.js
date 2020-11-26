@@ -885,7 +885,7 @@ class TrackedDevice {
     }
 
     show() {
-        let radius = 110
+        let radius = width/12.8
         let n = 10
         let size = 2
         let lSize = map(this.smoothRotation, 0, 360, 10, 75)
@@ -908,11 +908,11 @@ class TrackedDevice {
             let y = 0 + sin(angle) * radius * 0.55;
             //rect(x, y, 20, 20);
 
-            let x1 = 0 + (radius - 20) * cos(lerpAngle);
-            let y1 = 0 + (radius - 20) * sin(lerpAngle);
+            let x1 = 0 + (radius - width/80) * cos(lerpAngle);
+            let y1 = 0 + (radius - width/80) * sin(lerpAngle);
 
-            let x2 = 0 + (radius - 30) * cos(lerpAngle);
-            let y2 = 0 + (radius - 30) * sin(lerpAngle);
+            let x2 = 0 + (radius - width/192) * cos(lerpAngle);
+            let y2 = 0 + (radius - width/192) * sin(lerpAngle);
 
             //noStroke();
 
