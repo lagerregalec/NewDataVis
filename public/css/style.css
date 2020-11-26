@@ -42,29 +42,18 @@ body {
 
 h1 {
     /* Body 1 Text style */
-<<<<<<< Updated upstream
-    font-family: 'akzidenz-grotesk-bol-it', Arial, sans-serif;
-    font-size: 20pt;
-    line-height: 24pt;
-=======
     font-family: 'Theinhardt-Bold';
     font-size: 18pt;
     line-height: 20pt;
->>>>>>> Stashed changes
     color: #000000;
 }
 
 h2 {
     /* Body 1 Text style */
-<<<<<<< Updated upstream
-    font-family: 'akzidenz-grotesk-reg', Arial, sans-serif;
-    font-size: 12pt;
-    line-height: 15pt;
-=======
+
     font-family: 'Theinhardt-Bold';
     font-size: 10pt;
     line-height: 12pt;
->>>>>>> Stashed changes
     color: #000000;
 }
 
@@ -95,7 +84,7 @@ b2 {
     position: absolute;
     top: 20px;
     left: 20px;
-    width: 150px;
+    width: 300px;
     height: 200px;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
@@ -206,16 +195,12 @@ b2 {
     opacity: 1;
     stroke: rgba(0, 0, 0, 1);
     stroke-width: 2;
-<<<<<<< Updated upstream
-    border: 1px solid rgba(0, 0, 0, 1);
-    padding: 20px !important;
-=======
+
     border: 2px solid rgba(0, 0, 0, 1);
     padding-top: 10px !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
     padding-bottom: 10px !important;
->>>>>>> Stashed changes
     z-index: 10001;
 }
 
