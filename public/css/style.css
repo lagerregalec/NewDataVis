@@ -43,24 +43,24 @@ body {
 h1 {
     /* Body 1 Text style */
     font-family: 'Theinhardt-Bold';
-    font-size: 18pt;
-    line-height: 20pt;
+    font-size: 31pt;
+    line-height: 35pt;
     color: #000000;
 }
 
 h2 {
     /* Body 1 Text style */
-    font-family: 'Theinhardt-Bold';
-    font-size: 10pt;
-    line-height: 12pt;
+    font-family: 'Theinhardt-Bold-ita';
+    font-size: 31pt;
+    line-height: 35pt;
     color: #000000;
 }
 
 b1 {
     /* Body 1 Text style */
     font-family: 'Theinhardt-Regular';
-    font-size: 10pt;
-    line-height: 12pt;
+    font-size: 20pt;
+    line-height: 25pt;
     letter-spacing: 0.03em;
     color: #000000;
 
@@ -69,8 +69,8 @@ b1 {
 b2 {
     /* Body 1 Text style */
     font-family: 'Theinhardt-Regular';
-    font-size: 12pt;
-    line-height: 15pt;
+    font-size: 20pt;
+    line-height: 25pt;
     letter-spacing: 0.03em;
     color: #000000;
 }
@@ -81,10 +81,10 @@ b2 {
 #infoWindow {
     z-index: 100001;
     position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 300px;
-    height: 200px;
+    top: 3.5%;
+    left: 2%;
+    width: 10%;
+    height: 15%;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
 }
@@ -92,10 +92,10 @@ b2 {
 #tutWindow1 {
     z-index: 100001;
     position: absolute;
-    top: 250px;
-    left: 20px;
-    width: 300px;
-    height: 250px;
+    top: 20%;
+    left: 2%;
+    width: 10%;
+    height: 17%;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
     display: block;
@@ -104,10 +104,10 @@ b2 {
 #tutWindow2 {
     z-index: 100001;
     position: absolute;
-    top: 250px;
-    left: 20px;
-    width: 300px;
-    height: 250px;
+    top: 20%;
+    left: 2%;
+    width: 10%;
+    height: 17%;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
     display: none;
@@ -117,13 +117,35 @@ b2 {
 #tutWindow3 {
     z-index: 100001;
     position: absolute;
-    top: 250px;
-    left: 20px;
-    width: 300px;
-    height: 250px;
+    top: 20%;
+    left: 2%;
+    width: 10%;
+    height: 17%;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
     display: none;
+}
+
+#CO2Window {
+    z-index: 100001;
+    position: absolute;
+    top: 80.6%;
+    left: 79%;
+    width: 10%;
+    background-color: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 1);
+    display: block;
+}
+
+#fuckingLegend {
+    z-index: 100001;
+    position: absolute;
+    top: 80.6%;
+    left: 91%;
+    height: 16.75%;
+    background-color: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 1);
+    display: block;
 }
 
 #defaultCanvas0 {
@@ -194,10 +216,10 @@ b2 {
     stroke: rgba(0, 0, 0, 1);
     stroke-width: 2;
     border: 2px solid rgba(0, 0, 0, 1);
-    padding-top: 0px !important;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    padding-bottom: 5px !important;
+    padding-top: 0% !important;
+    padding-left: 0.8% !important;
+    padding-right: 0.7% !important;
+    padding-bottom: 0.2% !important;
     z-index: 10001;
 }
 
@@ -221,7 +243,7 @@ b2 {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     position: absolute;
-    top: 80%;
+    top: 88%;
     left: 45%;
     background: rgba(255, 255, 255,0);
     border: 2px solid rgba(0, 0, 0, 1);
@@ -249,7 +271,7 @@ b2 {
     -moz-border-radius: 50%;
     position: absolute;
     top: 5%;
-    left: -15%;
+    left: -8%;
     background: rgba(255, 255, 255,0);
     border: 2px solid rgba(0, 0, 0, 0);
 }
@@ -263,8 +285,8 @@ b2 {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     position: absolute;
-    top: 1.5%;
-    left: -12%;
+    top: -2%;
+    left: -4%;
     background: rgba(255, 255, 255, 0);
     border: 2px solid rgba(0, 0, 0, 0);
 }
