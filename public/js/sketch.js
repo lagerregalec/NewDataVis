@@ -26,7 +26,7 @@ let r = 400
 let easycam
 let pOI = []
 let pOI2 = []
-let startRotation = [0.95, 0.5, 0, 0]
+let startRotation = [0.95, 0.4, 0, 0]
 
 let socket = io()
 
@@ -347,7 +347,7 @@ function draw() {
     if (flagPerspective) {
         startRotation = [1, 0, 0, 0]
     } else {
-        startRotation = [0.95, 0.5, 0, 0]
+        startRotation = [0.95, 0.4, 0, 0]
     }
 	show3D()
 	show2D()
