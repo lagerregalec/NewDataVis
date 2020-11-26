@@ -569,7 +569,7 @@ function show2D() {
             updateHTML(element.smoothPosition.x, element.smoothPosition.y, element.id)
         })
     }
-    legend()
+   // legend()
     easycam.endHUD()
 }
 
@@ -623,7 +623,7 @@ function updateHTML(x_pos, y_pos, tracked_id) {
 
         if (element.id == tracked_id) {
             //element.innerHTML = "AlecTheBest"
-            element.style.left = (x_pos - 65) + 'px';
+            element.style.left = (x_pos - 80) + 'px';
             element.style.top = (y_pos+160) + 'px';
 
             if(tracked_id == 'information') {
@@ -634,7 +634,7 @@ function updateHTML(x_pos, y_pos, tracked_id) {
 //hereIam
             if(tracked_id == 'navigation'){
                 //element.addEventListener("click", flagPerspective = !flagPerspective);
-                element.innerHTML = "change perspective"
+                element.innerHTML = "<b3>change perspective<b3>"
                 element.style.backgroundColor = color(242,242,242)
             }
 
