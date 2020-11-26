@@ -569,7 +569,7 @@ function show2D() {
             updateHTML(element.smoothPosition.x, element.smoothPosition.y, element.id)
         })
     }
-    legend()
+   // legend()
     easycam.endHUD()
 }
 
@@ -587,16 +587,15 @@ function createHTML(id) {
     }
 */
     let buttonDiv1 = document.createElement("div")   // creating a new div
+    let buttonDiv2 = document.createElement("div")
+
     buttonDiv1.id = id
+    buttonDiv2.id = id
+    buttonDiv1.className = "trackedDivs"
+    buttonDiv2.className = "interactiveButton"
 
-	if(buttonDiv1.id == 'navigation'){
-	buttonDiv1.className = "trackedDivs"
-	buttonDiv1.innerHTML = "HoiNemo";}
-
-	if(buttonDiv1.id == 'information'){
-		buttonDiv1.className = "trackedDivs"
-		buttonDiv1.innerHTML = `${treePlanter}GT`;}
     document.body.appendChild(buttonDiv1)
+    document.body.appendChild(buttonDiv2)
 }
 
 // this function update the position and labels of the tracked devices
@@ -606,14 +605,39 @@ function updateHTML(x_pos, y_pos, tracked_id) {
 
         if (element.id == tracked_id) {
         	//element.innerHTML = "AlecTheBest"
-            element.style.left = (x_pos - 200) + 'px';
-            element.style.top = (y_pos - 190) + 'px';
+            element.style.left = (x_pos - 270) + 'px';
+            element.style.top = (y_pos - 270) + 'px';
 
             if(tracked_id == 'information'){
             element.innerHTML = `${round(map(treePlanter,88,-88,0,200))}'000'000 trees`}
 
             if(tracked_id == 'navigation'){
-                element.innerHTML = "Danke Dave <3"}
+                element.innerHTML = "Navigation"}
+
+        }
+    })
+
+    let interactiveButton = document.getElementsByClassName("interactiveButton")
+    //document.getElementsByClassName("interactiveButton").addEventListener("click", flagPerspective = !flagPerspective);
+    Array.prototype.forEach.call(interactiveButton, function (element) {
+
+        if (element.id == tracked_id) {
+            //element.innerHTML = "AlecTheBest"
+            element.style.left = (x_pos - 80) + 'px';
+            element.style.top = (y_pos+160) + 'px';
+
+            if(tracked_id == 'information') {
+                //element.innerHTML = `${round(map(treePlanter,88,-88,0,200))}'000'000 trees`
+                element.style.backgroundColor = color(126,192,136)
+                element.style.display = "none"
+            }
+//hereIam
+            if(tracked_id == 'navigation'){
+                //element.addEventListener("click", flagPerspective = !flagPerspective);
+                element.innerHTML = "<b3>change perspective<b3>"
+                element.style.backgroundColor = color(242,242,242)
+            }
+
         }
     })
 }
@@ -628,6 +652,25 @@ function destroyHTML(tracked_id) {
         if (element.id == tracked_id) {
             // search for a function to actually remove an element from HTML
             element.remove()
+        }
+    })
+
+    let interactiveButton = document.getElementsByClassName("interactiveButton")
+    Array.prototype.forEach.call(interactiveButton, function (element) {
+
+        if (element.id == tracked_id) {
+            //element.innerHTML = "AlecTheBest"
+            element.style.left = (x_pos + 200) + 'px';
+            element.style.top = (y_pos + 190) + 'px';
+
+            if(tracked_id == 'information') {
+                //element.innerHTML = `${round(map(treePlanter,88,-88,0,200))}'000'000 trees`}
+            }
+            if(tracked_id == 'navigation'){
+                element.innerHTML = "this is different"
+
+            }
+
         }
     })
 }
