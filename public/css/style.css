@@ -43,24 +43,24 @@ body {
 h1 {
     /* Body 1 Text style */
     font-family: 'Theinhardt-Bold';
-    font-size: 31pt;
-    line-height: 35pt;
+    font-size: 22pt;
+    line-height: 25pt;
     color: #000000;
 }
 
 h2 {
     /* Body 1 Text style */
     font-family: 'Theinhardt-Bold-ita';
-    font-size: 31pt;
-    line-height: 35pt;
+    font-size: 22pt;
+    line-height: 25pt;
     color: #000000;
 }
 
 b1 {
     /* Body 1 Text style */
     font-family: 'Theinhardt-Regular';
-    font-size: 20pt;
-    line-height: 25pt;
+    font-size: 16pt;
+    line-height: 20pt;
     letter-spacing: 0.03em;
     color: #000000;
 
@@ -69,8 +69,8 @@ b1 {
 b2 {
     /* Body 1 Text style */
     font-family: 'Theinhardt-Regular';
-    font-size: 20pt;
-    line-height: 25pt;
+    font-size: 16pt;
+    line-height: 20pt;
     letter-spacing: 0.03em;
     color: #000000;
 }
@@ -81,7 +81,6 @@ b3{
     line-height: 6pt;!important;
     letter-spacing: 0.03em;
     color: #000000;
-
 }
 
 
@@ -92,8 +91,8 @@ b3{
     position: absolute;
     top: 3.5%;
     left: 2%;
-    width: 10%;
-    height: 15%;
+    width: 15%;
+    height: 20%;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
 }
@@ -103,8 +102,8 @@ b3{
     position: absolute;
     top: 20%;
     left: 2%;
-    width: 10%;
-    height: 17%;
+    width: 15%;
+    height: 22%;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
     display: block;
@@ -115,8 +114,8 @@ b3{
     position: absolute;
     top: 20%;
     left: 2%;
-    width: 10%;
-    height: 17%;
+    width: 15%;
+    height: 22%;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
     display: none;
