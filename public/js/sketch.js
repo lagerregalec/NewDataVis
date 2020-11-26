@@ -605,8 +605,8 @@ function updateHTML(x_pos, y_pos, tracked_id) {
 
         if (element.id == tracked_id) {
         	//element.innerHTML = "AlecTheBest"
-            element.style.left = (x_pos - 350) + 'px';
-            element.style.top = (y_pos - 350) + 'px';
+            element.style.left = (x_pos - 270) + 'px';
+            element.style.top = (y_pos - 270) + 'px';
 
             if(tracked_id == 'information'){
             element.innerHTML = `${round(map(treePlanter,88,-88,0,200))}'000'000 trees`}
@@ -618,20 +618,22 @@ function updateHTML(x_pos, y_pos, tracked_id) {
     })
 
     let interactiveButton = document.getElementsByClassName("interactiveButton")
+    //document.getElementsByClassName("interactiveButton").addEventListener("click", flagPerspective = !flagPerspective);
     Array.prototype.forEach.call(interactiveButton, function (element) {
 
         if (element.id == tracked_id) {
             //element.innerHTML = "AlecTheBest"
-            element.style.left = (x_pos - 70) + 'px';
-            element.style.top = (y_pos+240) + 'px';
+            element.style.left = (x_pos - 65) + 'px';
+            element.style.top = (y_pos+160) + 'px';
 
             if(tracked_id == 'information') {
                 //element.innerHTML = `${round(map(treePlanter,88,-88,0,200))}'000'000 trees`
                 element.style.backgroundColor = color(126,192,136)
                 element.style.display = "none"
             }
-
+//hereIam
             if(tracked_id == 'navigation'){
+                //element.addEventListener("click", flagPerspective = !flagPerspective);
                 element.innerHTML = "change perspective"
                 element.style.backgroundColor = color(242,242,242)
             }
@@ -665,7 +667,9 @@ function destroyHTML(tracked_id) {
                 //element.innerHTML = `${round(map(treePlanter,88,-88,0,200))}'000'000 trees`}
             }
             if(tracked_id == 'navigation'){
-                element.innerHTML = "this is different"}
+                element.innerHTML = "this is different"
+
+            }
 
         }
     })
