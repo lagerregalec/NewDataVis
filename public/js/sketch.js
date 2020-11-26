@@ -605,8 +605,8 @@ function updateHTML(x_pos, y_pos, tracked_id) {
 
         if (element.id == tracked_id) {
         	//element.innerHTML = "AlecTheBest"
-            element.style.left = (x_pos - 270) + 'px';
-            element.style.top = (y_pos - 270) + 'px';
+            element.style.left = (x_pos - 350) + 'px';
+            element.style.top = (y_pos - 350) + 'px';
 
             if(tracked_id == 'information'){
             element.innerHTML = `${round(map(treePlanter,88,-88,0,200))}'000'000 <br> trees planted`}
