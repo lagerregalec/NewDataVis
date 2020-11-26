@@ -100,7 +100,7 @@ b3{
 #tutWindow1 {
     z-index: 100001;
     position: absolute;
-    top: 25%;
+    top: 26%;
     left: 2%;
     width: 15%;
     height: 22%;
@@ -112,7 +112,7 @@ b3{
 #tutWindow2 {
     z-index: 100001;
     position: absolute;
-    top: 25%;
+    top: 26%;
     left: 2%;
     width: 15%;
     height: 22%;
@@ -125,7 +125,7 @@ b3{
 #tutWindow3 {
     z-index: 100001;
     position: absolute;
-    top: 25%;
+    top: 26%;
     left: 2%;
     width:15%;
     height: 17%;
@@ -138,7 +138,7 @@ b3{
     z-index: 100001;
     position: absolute;
     top: 80.6%;
-    left: 76%;
+    left: 79%;
     width: 10%;
     background-color: #ffffff;
     border: 2px solid rgba(0, 0, 0, 1);
