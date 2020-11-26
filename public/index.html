@@ -21,30 +21,55 @@
 </head>
 <body>
 
-<div id="testLabel" class="window">
-    <button class="button"  onclick="document.getElementById('myDiv').style.display = 'block';"> > </button>
-    <h1>Earth Viewer Test</h1>
-    <b2>In this visualisation, we show the impact of our greenhouse Gas Emissions on global warming and how activism for biodiversity and reforestation can impact this development.</b2>
+
+<div id="infoWindow" class="window">
+    <h1>Climate Change</h1>
+    <b2>In this visualisation, we show the impact of our greenhouse Gas Emissions on global warming and how activism for
+        biodiversity and reforestation can impact this development.
+    </b2>
 </div>
 
-<div id="myDiv" , class="window">
-    <div class="infoButtonParent">
-        <button class="infoWindowBut" onclick="document.getElementById('myDiv').style.display='none'"> > </button>
+<div id="tutWindow1" class="window">
+    <div class="showButtonParent">
+        <button class="showButton" onclick="document.getElementById('tutWindow2').style.display = 'block';"
+                onclick="document.getElementById('tutWindow1').style.display='none'"> > </button>
+
     </div>
-</div>
-
-<!--
-
-<div class="token"></div>
-
-<div id="infoDiv" class="window">
     <div class="closeButtonParent">
-        <button class="closeWindowBut" onclick="document.getElementById('infoDiv').style.display='none'">x</button>
+        <button class="closeButton" onclick="document.getElementById('tutWindow1').style.display='none'"> x </button>
     </div>
-    <p>
-        infoWindow
-    </p>
-</div> -->
+    <h1>Reforestation</h1>
+    <b2>Using the Reforestation token, you can model our reforestation efforts to compensate greenhouse gas emissions and see the positive impact on global warming.
+
+    </b2>
+</div>
+
+<div id="tutWindow2" class="window">
+    <div class="showButtonParent">
+        <button class="showButton" onclick="document.getElementById('tutWindow3').style.display = 'block';"> > </button>
+    </div>
+    <div class="closeButtonParent">
+        <button class="closeButton" onclick="document.getElementById('tutWindow2').style.display='none'"> x </button>
+    </div>
+    <h1>Emission</h1>
+    <b2>Using the Emission token, you can choose the development Scenario of our Emissions until 2050.
+        These scenarios impact the global warming shown in the heatmap.
+    </b2>
+</div>
+
+<div id="tutWindow3" class="window">
+    <div class="showButtonParent">
+        <button class="showButton" onclick="document.getElementById('tutWindow1').style.display = 'block';"
+                onclick="document.getElementById('tutWindow3').style.display='none'"> > </button>
+    </div>
+    <div class="closeButtonParent">
+        <button class="closeButton" onclick="document.getElementById('tutWindow3').style.display='none'"> x </button>
+    </div>
+    <h1>Navigation</h1>
+    <b2>Using the Navigation token, you can zoom in on particular areas, tilt and rotate the map and change the perspective.
+    </b2>
+</div>
+
 </body>
 
 </html>
