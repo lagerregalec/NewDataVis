@@ -887,7 +887,7 @@ class TrackedDevice {
     show() {
         let radius = width/12.8
         let n = 10
-        let size = 2
+        let size = width/800
         let lSize = map(this.smoothRotation, 0, 360, 10, 75)
         let rotX = (0 + radius) * Math.cos(radians(this.smoothRotation))
         let rotY = (0 + radius) * Math.sin(radians(this.smoothRotation))
@@ -899,7 +899,7 @@ class TrackedDevice {
         translate(this.smoothPosition.x, this.smoothPosition.y);
 
         fill(this.color);
-        ellipse(0, 0, radius + 70, radius + 70, 50);
+        ellipse(0, 0, radius + width/30, radius + width/30, 50);
 
         let angle = map(this.smoothRotation, 20, 340, PI, 2 * PI);
         for (let i = 0; i <= n; i++) {
@@ -936,7 +936,7 @@ class TrackedDevice {
 
         }
         fill(0);
-        ellipse(0, 0, radius, radius);
+        ellipse(0, 0, radius+width/200, radius+width/200,50);
         pop();
 
         //fill(255,255,100, 25+map(this.smoothRotation,0,360,0,150))
